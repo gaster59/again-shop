@@ -18,6 +18,7 @@
                     <div class="panel-heading">Log in</div>
                     <div class="panel-body">
                         <form role="form" method="post" action="{{ route("admin.doLogin.index") }}">
+                            @csrf
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="E-mail" name="email"
@@ -32,7 +33,7 @@
                                         value="Remember Me">Remember Me
                                     </label>
                                 </div>
-                                <a href="index.html" class="btn btn-primary">Login</a>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </fieldset>
                         </form>
                     </div>

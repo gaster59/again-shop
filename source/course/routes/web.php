@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Admin'], function () {
     Route::prefix('admin')->group(function() {
+        Route::get('temp', "LoginController@temp")->name('admin.login.temp');
         Route::get('login', "LoginController@index")->name('admin.login.index');
         Route::post('doLogin', "LoginController@login")->name('admin.doLogin.index');
 

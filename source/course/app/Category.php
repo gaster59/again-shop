@@ -18,11 +18,12 @@ class Category extends Model
         $fields = [
             'name',
             'description',
-            'parent_id'
+            'parent_id',
         ];
+
         $result = $this->select($fields)
-                        ->where('deleted_at', null)
-                        ->get();
+            ->where('deleted_at', null)
+            ->get();
         return $result;
     }
 }
