@@ -30,4 +30,5 @@
     </li>
     <li role="presentation" class="divider"></li>
     <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
+    <li><a href="{{ route('admin.category.index') }}"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Category</a></li>
 </ul>

@@ -33,9 +33,9 @@ class LoginController extends Controller
         ], true)) {
             $checked = true;
             \Auth::guard('admin');
-            dd(111, \Auth::guard('admin')->check(), \Auth::guard('admin')->user()->name);
+            // dd(111, \Auth::guard('admin')->check(), \Auth::guard('admin')->user()->name);
         }
-        dd(1, $checked);
+        return redirect(route('admin.category.index'));
     }
 
     public function temp()

@@ -12,7 +12,7 @@
         <link href="{{ URL::asset('admin/css/styles.css') }}" rel="stylesheet">
 
         <!--Icons-->
-        <script src="js/lumino.glyphs.js"></script>
+        <script src="{{ URL::asset('admin/js/lumino.glyphs.js') }}"></script>
 
         <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
