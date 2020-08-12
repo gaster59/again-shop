@@ -55,7 +55,7 @@
             <div class="form-group row">
                 <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="cancel" class="btn btn-primary">Cancel</button>
+                <button type="reset" class="btn btn-primary">Cancel</button>
                 </div>
             </div>
         </form>

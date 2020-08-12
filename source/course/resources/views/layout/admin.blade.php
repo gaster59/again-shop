@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Lumino - Tables</title>
 
         <link href="{{ URL::asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -65,9 +66,15 @@
 
         <script src="{{ URL::asset('admin/js/jquery-1.11.1.min.js') }}"></script>
         <script src="{{ URL::asset('admin/js/bootstrap.min.js') }}"></script>
-        <script src="{{ URL::asset('js/chart.min.js') }}"></script>
+        <!-- <script src="{{ URL::asset('js/chart.min.js') }}"></script> -->
         <script src="{{ URL::asset('admin/js/bootstrap-datepicker.js') }}"></script>
         <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             !function ($) {
                 $(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
                     $(this).find('em:first').toggleClass("glyphicon-minus");	  

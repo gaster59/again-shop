@@ -30,9 +30,16 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::post('category/doAdd', "CategoryController@store")->name('admin.category.doAdd');
         Route::get('category/edit/{id}', "CategoryController@edit")->name('admin.category.edit');
         Route::post('category/edit/{id}', "CategoryController@update")->name('admin.category.doEdit');
-        Route::delete('category/delete/{id}', "CategoryController@delete")->name('admin.category.delete');
+        Route::get('category/delete/{id}', "CategoryController@delete")->name('admin.category.delete');
 
         Route::get('product', "ProductController@index")->name('admin.product.index');
+        Route::get('product/add', "ProductController@add")->name('admin.product.add');
+        Route::post('product/doAdd', "ProductController@store")->name('admin.product.doAdd');
+        Route::get('product/edit/{id}', "ProductController@edit")->name('admin.product.edit');
+        Route::post('product/edit/{id}', "ProductController@update")->name('admin.product.doEdit');
+        Route::get('product/delete/{id}', "ProductController@delete")->name('admin.product.delete');
+
+        Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
 
         Route::get('blog', "BlogController@index")->name('admin.blog.index');
     });

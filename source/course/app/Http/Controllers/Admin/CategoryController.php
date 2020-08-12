@@ -15,6 +15,10 @@ class CategoryController extends BaseController
         $this->category = $category;
     }
 
+    /**
+     * @method index
+     * @return view
+     */
     public function index()
     {
         $categories = $this->category->getCategories();
@@ -25,11 +29,20 @@ class CategoryController extends BaseController
         return view('admin.category.index', $data);
     }
 
+    /**
+     * @method add
+     * @return view
+     */
     public function add()
     {
         return view('admin.category.add');
     }
 
+    /**
+     * @method store
+     * @param CategoryRequest $request
+     * @return redirect
+     */
     public function store(CategoryRequest $request)
     {
         try {
@@ -47,12 +60,61 @@ class CategoryController extends BaseController
         return redirect(route('admin.category.index'));
     }
 
+    /**
+     * @method edit
+     * @param integer $id
+     * @return view
+     */
     public function edit($id)
     {
         $category = $this->category->getDetailCategory($id);
         return view('admin.category.edit', [
-            'category' => $category
+            'category' => $category,
         ]);
+    }
+
+    /**
+     * @method update
+     * @param integer $id
+     * @param CategoryRequest $request
+     * @return redirect
+     */
+    public function update($id, CategoryRequest $request)
+    {
+        try {
+            $auth     = \Auth::guard('admin')->user();
+            $category = $this->category->getDetailCategory($id);
+            $category->update([
+                'name'             => $request->name,
+                'description'      => $request->description,
+                'meta_tags'        => $request->meta_tags,
+                'meta_description' => $request->meta_description,
+                'updated_by'       => $auth->id,
+            ]);
+        } catch (Exception $ex) {
+            \Log::error($ex->getMessage());
+        }
+        return redirect(route('admin.category.index'));
+    }
+
+    /**
+     * @method delete
+     * @param integer $id
+     * @return redirect
+     */
+    public function delete($id)
+    {
+        try {
+            $auth     = \Auth::guard('admin')->user();
+            $category = $this->category->getDetailCategory($id);
+            $category->update([
+                'deleted_by' => $auth->id,
+            ]);
+            $category->delete();
+        } catch (Exception $ex) {
+            \Log::error($ex->getMessage());
+        }
+        return redirect(route('admin.category.index'));
     }
 
 }

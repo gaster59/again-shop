@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -29,13 +32,13 @@ class Category extends Model
             'parent_id',
         ];
 
-        $result = $this->select($fields)->where('deleted_at', null)->get();
+        $result = $this->select($fields)->get();
         return $result;
     }
 
     public function getDetailCategory($id)
     {
-        $result = $this->select()->where('id', $id)->where('deleted_at', null)->first();
+        $result = $this->select()->where('id', $id)->first();
         return $result;
     }
 }

@@ -11,26 +11,28 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Category</h1>
+        <h1 class="page-header">Product</h1>
         
-        <a href="{{ route('admin.category.add') }}" type="button" class="btn btn-primary">Add</a>
+        <a href="{{ route('admin.product.add') }}" type="button" class="btn btn-primary">Add</a>
         
         <table class="table table-hover">
         <thead>
             <tr>
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach($categories as $category)
+            @foreach($products as $product)
             <tr>
-                <td>{{ $category->name }}</td>
-                <td>{{ $category->description }}</td>
+                <td>{{ $product->avatar }}</td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->description }}</td>
                 <td>
-                    <a href="{{ route('admin.category.edit',['id' => $category->id]) }}" type="button" class="btn btn-primary">Edit</a>
-                    <a href="{{ route('admin.category.delete',['id' => $category->id]) }}" type="button" class="btn btn-primary">Delete</a>
+                    <a href="{{ route('admin.product.edit',['id' => $product->id]) }}" type="button" class="btn btn-primary">Edit</a>
+                    <a href="{{ route('admin.product.delete',['id' => $product->id]) }}" type="button" class="btn btn-primary">Delete</a>
                     <form>
                 </td>
             </tr>
