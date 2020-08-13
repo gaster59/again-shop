@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
             'avatar' => 'image',
             'name' => 'required|max:70',
             'price' => 'nullable|numeric',
-            'price_down' => 'nullable|numeric',
+            'price_down' => 'nullable|numeric|lt:price',
             'description' => 'max:200',
             'meta_tags' => 'max:200',
             'meta_description' => 'max:200',

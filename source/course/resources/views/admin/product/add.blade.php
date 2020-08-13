@@ -55,6 +55,19 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="category_id" class="col-sm-2 col-form-label">Category</label>
+                <div class="col-sm-10">
+                    <select name="category_id" id="category_id" class="form-control">
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('description'))
+                        <div class="error text-danger">{{ $errors->first('description') }}</div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="price" class="col-sm-2 col-form-label">Price</label>
                 <div class="col-sm-10">
                     <input type="text" name="price" class="form-control" id="price" value="{{ old('price', '') }}">
