@@ -48,7 +48,7 @@
             <div class="form-group row">
                 <label for="summary" class="col-sm-2 col-form-label">Summary</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="summary" name="summary">{{ old('summary', '') }}</textarea>
+                    <textarea class="form-control ckeditor" id="summary" name="summary">{{ old('summary', '') }}</textarea>
                     @if($errors->has('description'))
                         <div class="error text-danger">{{ $errors->first('description') }}</div>
                     @endif
@@ -62,8 +62,8 @@
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('description'))
-                        <div class="error text-danger">{{ $errors->first('description') }}</div>
+                    @if($errors->has('category_id'))
+                        <div class="error text-danger">{{ $errors->first('category_id') }}</div>
                     @endif
                 </div>
             </div>
@@ -117,7 +117,10 @@
 @endsection
 
 @section("js")
+<script src="{{ URL::asset('admin/js/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript">
+    CKEDITOR.config.filebrowserImageUploadUrl = '{!! route('admin.uploader.saveImage').'?_token='.csrf_token() !!}';
+    CKEDITOR.config.filebrowserUploadMethod = 'form';
     var urlSaveImage = "{{ route('admin.uploader.saveImage') }}";
     $(function(){
         function readURL(input) {
@@ -126,8 +129,6 @@
                 reader.onload = function(e) {
                     $('#previewImg').attr('src', e.target.result);
                     $('#hdnAvatar').val(e.target.result);
-                    // $.post(urlSaveImage, {"src": e.target.result, 'name': 'avatar'}, function(response){
-                    // });
                 }
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
             }

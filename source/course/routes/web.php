@@ -39,8 +39,8 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::post('product/edit/{id}', "ProductController@update")->name('admin.product.doEdit');
         Route::get('product/delete/{id}', "ProductController@delete")->name('admin.product.delete');
 
-        Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
-
         Route::get('blog', "BlogController@index")->name('admin.blog.index');
+
+        Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
     });
 });
