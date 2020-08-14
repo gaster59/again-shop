@@ -31,6 +31,7 @@ class ProductRequest extends FormRequest
             'description' => 'max:200',
             'meta_tags' => 'max:200',
             'meta_description' => 'max:200',
+            'category_id' => 'required'
         ];
     }
 }
