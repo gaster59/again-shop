@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::group(['namespace' => 'Front'], function () {
+    Route::get('/', "ShopController@index")->name('shop.index');
+    Route::get('/search', "ShopController@search")->name('shop.search');
 });
 
 Route::group(['namespace' => 'Admin'], function () {

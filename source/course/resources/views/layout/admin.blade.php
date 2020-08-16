@@ -5,12 +5,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Lumino - Tables</title>
+        <title>Admin</title>
 
         <link href="{{ URL::asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('admin/css/datepicker3.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('admin/css/bootstrap-table.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('admin/css/styles.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('admin/css/admin.css') }}" rel="stylesheet">
 
         <!--Icons-->
         <script src="{{ URL::asset('admin/js/lumino.glyphs.js') }}"></script>
@@ -67,6 +68,7 @@
         <script src="{{ URL::asset('admin/js/jquery-1.11.1.min.js') }}"></script>
         <script src="{{ URL::asset('admin/js/bootstrap.min.js') }}"></script>
         <!-- <script src="{{ URL::asset('js/chart.min.js') }}"></script> -->
+        <script src="{{ URL::asset('admin/js/bootstrap-notify.min.js') }}"></script>
         <script src="{{ URL::asset('admin/js/bootstrap-datepicker.js') }}"></script>
         <script>
             $.ajaxSetup({
@@ -83,11 +85,21 @@
             }(window.jQuery);
 
             $(window).on('resize', function () {
-            if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+                if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
             })
             $(window).on('resize', function () {
-            if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+                if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
             })
+
+            @if(session('alertType') && session('alertMessage'))
+            $.notify({
+                // options
+                message: "{{ session('alertMessage') }}" 
+            },{
+                // settings
+                type: "{{ session('alertType') }}"
+            });
+            @endif
         </script>
         @section('js')
         @show

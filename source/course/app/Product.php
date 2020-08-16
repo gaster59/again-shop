@@ -14,21 +14,29 @@ class Product extends Model
      *
      * @var string
      */
-    protected $_table = 'products';
+    protected $table = 'products';
 
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $_guarded = [];
+    protected $guarded = [];
 
+    /**
+     * @method getProducts
+     */
     public function getProducts()
     {
         $result = $this->get();
         return $result;
     }
 
+    /**
+     * @method getDetailProduct
+     * @param Integer $id
+     * @return object
+     */
     public function getDetailProduct($id)
     {
         $result = $this->where('id', $id)->first();

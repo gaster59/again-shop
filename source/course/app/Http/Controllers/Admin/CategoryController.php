@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Http\Request;
 
 class CategoryController extends BaseController
 {
@@ -19,7 +20,7 @@ class CategoryController extends BaseController
      * @method index
      * @return view
      */
-    public function index()
+    public function index(Request $request)
     {
         $categories = $this->category->getCategories();
 

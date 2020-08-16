@@ -11,6 +11,11 @@ class UploaderController extends BaseController
         parent::__construct();
     }
 
+    /**
+     * @method saveImage
+     * @param Request $request
+     * @return string
+     */
     public function saveImage(Request $request)
     {
         $CKEditor = $request->query('CKEditor');

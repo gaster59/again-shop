@@ -5,7 +5,7 @@
 <div class="row">
     <ol class="breadcrumb">
         <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-        <li>Category</li>
+        <li><a href="{{ route('admin.category.index') }}">Category</a></li>
         <li class="active">Add</li>
     </ol>
 </div><!--/.row-->
