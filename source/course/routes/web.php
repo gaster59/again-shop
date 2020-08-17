@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group(['namespace' => 'Front'], function () {
     Route::get('/', "ShopController@index")->name('shop.index');
+    Route::get('/category/{id}', "ShopController@category")->name('shop.category.id');
     Route::get('/search', "ShopController@search")->name('shop.search');
     Route::get('/sitemap', "ShopController@siteMap")->name('shop.sitemap');
 });

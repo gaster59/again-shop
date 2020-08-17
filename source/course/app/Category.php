@@ -23,6 +23,10 @@ class Category extends Model
      */
     protected $guarded = [];
 
+    /**
+     * @method getCategories
+     * @return Array
+     */
     public function getCategories()
     {
         $fields = [
@@ -36,6 +40,11 @@ class Category extends Model
         return $result;
     }
 
+    /**
+     * @method getDetailCategory
+     * @param Integer $id
+     * @return Object
+     */
     public function getDetailCategory($id)
     {
         $result = $this->select()->where('id', $id)->first();
