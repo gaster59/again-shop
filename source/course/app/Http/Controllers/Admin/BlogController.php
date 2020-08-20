@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-class BlogController extends BaseController
+class BlogController extends BaseAdminController
 {
 
 }

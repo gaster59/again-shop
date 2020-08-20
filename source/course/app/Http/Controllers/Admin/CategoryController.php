@@ -6,7 +6,7 @@ use App\Category;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
-class CategoryController extends BaseController
+class CategoryController extends BaseAdminController
 {
     private $__category;
 

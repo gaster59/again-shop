@@ -11,14 +11,14 @@ use App\Services\ImageService;
 use DB;
 use Illuminate\Http\Request;
 
-class ProductController extends BaseController
+class ProductController extends BaseAdminController
 {
 
     private $__product;
     private $__category;
     private $__imageService;
     private $__alertService;
-    private $__productCategories;
+    private $__productCategories;    
 
     public function __construct(Product $product, Category $category, ImageService $imageService, AlertService $alertService, ProductCategories $productCategories)
     {
@@ -73,7 +73,7 @@ class ProductController extends BaseController
                 'meta_tags'        => $request->meta_tags,
                 'meta_description' => $request->meta_description,
                 'price'            => $request->price ?? '',
-                'price_down'       => $request->price_down ?? '',
+                'price_down'       => $request->price_down ?? 0,
                 'created_by'       => $auth->id,
             ]);
             $productId                   = $productInserted->id;

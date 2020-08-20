@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-class DashboardController extends BaseController
+class DashboardController extends BaseAdminController
 {
 
     public function __construct()

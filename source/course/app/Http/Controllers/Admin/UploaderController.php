@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-class UploaderController extends BaseController
+class UploaderController extends BaseAdminController
 {
     public function __construct()
     {

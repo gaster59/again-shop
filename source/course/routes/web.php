@@ -23,12 +23,13 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/sitemap', "ShopController@siteMap")->name('shop.sitemap');
 });
 
-Route::group(['namespace' => 'Admin'], function () {
-    Route::prefix('admin')->group(function () {
-        Route::get('temp', "LoginController@temp")->name('admin.login.temp');
-        Route::get('login', "LoginController@index")->name('admin.login.index');
-        Route::post('doLogin', "LoginController@login")->name('admin.doLogin.index');
+Route::get('admin/login', "Admin\LoginController@index")->name('admin.login.index');
+Route::post('admin/doLogin', "Admin\LoginController@login")->name('admin.doLogin.index');
+Route::get('admin/temp', "Admin\LoginController@temp")->name('admin.login.temp');
 
+// Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], function () {
+Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], function () {
+    Route::prefix('admin')->group(function () {
         Route::get('dashboard', "DashboardController@index")->name('admin.dashboard.index');
 
         Route::get('category', "CategoryController@index")->name('admin.category.index');

@@ -15,26 +15,35 @@ class ImageService
      */
     public function saveProductImageBase64($base64String, $folder, $productId)
     {
-        if (!$this->__isBase64String($base64String)) {
-            return '';
+        $path = '';
+        try {
+            if (!$this->__isBase64String($base64String)) {
+                return '';
+            }
+            list($extension, $content) = explode(';', $base64String);
+            $tmpExtension              = 'jpg';
+            preg_match('/.([0-9]+) /', microtime(), $m);
+            $fileName = sprintf('img.%s', $tmpExtension);
+            $content  = explode(',', $content)[1];
+            $storage  = Storage::disk('avatar');
+    
+            $folder = $folder.'/'.$productId;
+            $checkDirectory = $storage->exists($folder);
+    
+            if (!$checkDirectory) {
+                $storage->makeDirectory($folder);
+            }
+    
+            $storage->put($folder . '/' . $fileName, base64_decode($content));
+            $urlImage = env('APP_URL') . $folder . '/' . $fileName;
+            $pathImage = public_path($folder . '/' . $fileName);
+
+            Image::make($pathImage)->resize(270,270)->save(public_path($folder . '/thumb1/' . $fileName));
+    
+            return $urlImage;
+        } catch(Exception $ex) {
+            \Log::error($ex->getMessage());
         }
-        list($extension, $content) = explode(';', $base64String);
-        $tmpExtension              = 'jpg';
-        preg_match('/.([0-9]+) /', microtime(), $m);
-        $fileName = sprintf('img%s.%s', $productId, $tmpExtension);
-        $content  = explode(',', $content)[1];
-        $storage  = Storage::disk('avatar');
-
-        $checkDirectory = $storage->exists($folder);
-
-        if (!$checkDirectory) {
-            $storage->makeDirectory($folder);
-        }
-
-        $storage->put($folder . '/' . $fileName, base64_decode($content));
-        $path = env('APP_URL') . $folder . '/' . $fileName;
-
-        return $path;
     }
 
     /**
@@ -44,7 +53,8 @@ class ImageService
      */
     public function convetImageToBase64($imageUrl)
     {
-        $data = file_get_contents($imageUrl);
+        $data = $this->imageToBase64($imageUrl);
+        dd($data);
         $base64 = 'data:image/jpeg' . ';base64,' . base64_encode($data);
         return $base64;
     }
@@ -62,5 +72,41 @@ class ImageService
         } else {
             return true;
         }
+    }
+
+    private function curl_get_contents($url)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
+    }
+
+    private function imageToBase64($image){
+        $imageData = base64_encode($this->curl_get_contents($image));
+        $mime_types = array(
+            'pdf' => 'application/pdf',
+            'doc' => 'application/msword',
+            'odt' => 'application/vnd.oasis.opendocument.text ',
+            'docx'	=> 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'gif' => 'image/gif',
+            'jpg' => 'image/jpg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'bmp' => 'image/bmp'
+        );
+        $ext = pathinfo($image, PATHINFO_EXTENSION);
+        
+        if (array_key_exists($ext, $mime_types)) {
+            $a = $mime_types[$ext];
+        }
+        return 'data: '.$a.';base64,'.$imageData;
     }
 }
