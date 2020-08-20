@@ -13,7 +13,7 @@ class ImageService
      * @param string $folder
      * @param string $productId
      */
-    public function saveProductImageBase64($base64String, $folder, $productId)
+    public function saveProductImageBase64($base64String, $folder, $productId, $type = "product")
     {
         $path = '';
         try {
@@ -38,9 +38,21 @@ class ImageService
             $urlImage = env('APP_URL') . $folder . '/' . $fileName;
             $pathImage = public_path($folder . '/' . $fileName);
 
-            Image::make($pathImage)->resize(270,270)->save(public_path($folder . '/thumb1/' . $fileName));
+            $arrayThumbnail = config('thumbnail.avatar');
+            foreach ($arrayThumbnail as $thumbnail => $size) {
+                $pathThumb = $folder . "/$thumbnail";
+                $checkDirectory = $storage->exists($pathThumb);
+                if (!$checkDirectory) {
+                    $storage->makeDirectory($pathThumb);
+                }
+                \Image::make($pathImage)->resize($size[0],$size[1])->save(public_path($pathThumb . '/' . $fileName));
+            }
     
-            return $urlImage;
+            return [
+                $urlImage,
+                env('APP_URL') . $folder . '/'
+
+            ];
         } catch(Exception $ex) {
             \Log::error($ex->getMessage());
         }

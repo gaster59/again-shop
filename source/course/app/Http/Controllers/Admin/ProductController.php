@@ -18,7 +18,7 @@ class ProductController extends BaseAdminController
     private $__category;
     private $__imageService;
     private $__alertService;
-    private $__productCategories;    
+    private $__productCategories;
 
     public function __construct(Product $product, Category $category, ImageService $imageService, AlertService $alertService, ProductCategories $productCategories)
     {
@@ -70,9 +70,10 @@ class ProductController extends BaseAdminController
                 'description'      => $request->description,
                 'summary'          => $request->summary,
                 'avatar'           => '',
+                'avatar_thumb'     => '',
                 'meta_tags'        => $request->meta_tags,
                 'meta_description' => $request->meta_description,
-                'price'            => $request->price ?? '',
+                'price'            => $request->price ?? 0,
                 'price_down'       => $request->price_down ?? 0,
                 'created_by'       => $auth->id,
             ]);
@@ -80,8 +81,12 @@ class ProductController extends BaseAdminController
             $productInserted->sort_order = $productInserted->id;
 
             // upload product avatar
-            $productInserted->avatar = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'avatar', $productId);
-            $productInserted->save();
+            if (!empty($request->hdn_avatar)) {
+                $avatar                        = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'avatar', $productId);
+                $productInserted->avatar       = $avatar[0];
+                $productInserted->avatar_thumb = $avatar[1];
+                $productInserted->save();
+            }
 
             $this->productCategories->create([
                 'product_id'  => $productId,
