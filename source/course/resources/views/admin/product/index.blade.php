@@ -35,6 +35,7 @@
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->description }}</td>
                 <td>
+                    <a href="{{ route('admin.product.add.image',['id' => $product->id]) }}" type="button" class="btn btn-primary">Add image</a>
                     <a href="{{ route('admin.product.edit',['id' => $product->id]) }}" type="button" class="btn btn-primary">Edit</a>
                     <a href="{{ route('admin.product.delete',['id' => $product->id]) }}" type="button" class="btn btn-primary">Delete</a>
                 </td>

@@ -22,7 +22,6 @@ class ProductController extends BaseAdminController
 
     public function __construct(Product $product, Category $category, ImageService $imageService, AlertService $alertService, ProductCategories $productCategories)
     {
-        parent::__construct();
         $this->product           = $product;
         $this->category          = $category;
         $this->imageService      = $imageService;
@@ -176,4 +175,22 @@ class ProductController extends BaseAdminController
         }
         return redirect(route('admin.product.index'));
     }
+
+    /**
+     * @method addImage
+     * @param Integer $id
+     * @param Request $request
+     */
+    public function addImage($id, Request $request)
+    {
+        $product = $this->product->getDetailProduct($id);
+        if (null == $product) {
+            $this->alertService->saveSessionDanger("Product doesn't exists");
+            return redirect(route('admin.product.index'));
+        }
+        return view('admin.product.add_image', [
+            'product' => $product
+        ]);
+    }
+
 }

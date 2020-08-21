@@ -22,18 +22,15 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
 
         $checked = false;
         if(\Auth::guard('admin')->attempt([
-            'email' => $email,
-            'password' => $password,
+            'email' => $request->email,
+            'password' => $request->password,
             'role' => 1
         ], true)) {
             $checked = true;
             \Auth::guard('admin');
-            // dd(111, \Auth::guard('admin')->check(), \Auth::guard('admin')->user()->name);
         }
         return redirect(route('admin.category.index'));
     }
