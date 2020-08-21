@@ -24,8 +24,23 @@ class ProductImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'productImage.*.file' => 'image',
-            'productImage.*.description_image' => 'max:200'
+            'productImage.*.file' => 'required|image',
+            'productImage.*.updateFile' => 'image',
+            'productImage.*.description_image' => 'required|max:10'
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'productImage.*.file' => 'File',
+            'productImage.*.updateFile' => 'File',
+            'productImage.*.description_image' => 'Description'
         ];
     }
 }

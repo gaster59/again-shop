@@ -30,4 +30,16 @@ class CategoryRequest extends FormRequest
             'meta_description' => 'max:200',
         ];
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        // return [
+        //     'email' => 'email address',
+        // ];
+    }
 }

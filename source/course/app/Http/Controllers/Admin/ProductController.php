@@ -10,6 +10,7 @@ use App\Services\AlertService;
 use App\Services\ImageService;
 use DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductImageRequest;
 
 class ProductController extends BaseAdminController
 {
@@ -191,6 +192,11 @@ class ProductController extends BaseAdminController
         return view('admin.product.add_image', [
             'product' => $product
         ]);
+    }
+
+    public function storeImage(ProductImageRequest $request)
+    {
+        
     }
 
 }

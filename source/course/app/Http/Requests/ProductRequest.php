@@ -52,4 +52,16 @@ class ProductRequest extends FormRequest
             'category_id'      => 'required|in:'.$inCategory,
         ];
     }
+    
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        // return [
+        //     'email' => 'email address',
+        // ];
+    }
 }

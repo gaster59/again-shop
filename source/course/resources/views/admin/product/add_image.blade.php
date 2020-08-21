@@ -14,23 +14,66 @@
     <div class="col-lg-12">
         <h1 class="page-header">Product - Add image</h1>
         
-        <form method="post" enctype="multipart/form-data" action="">
+        @php
+        $productImages = [];
+        if(!empty(old('productImage'))) {
+            $productImages = old('productImage');
+            //dd($productImages, count($productImages));
+        }
+        @endphp
+
+        <form method="post" enctype="multipart/form-data" action="{{ route('admin.product.add.doimage', ['id' => $product->id]) }}">
             @csrf
             <div id="group-image">
+                @if(empty($productImages))
                 <div class="form-group row area-image" data-index="0">
                     <label for="name" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-2">
-                        <input type="file" data-index="0" name="productImage[]['file']" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
+                        <input type="file" data-index="0" name="productImage[0][file]" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
                         <img class="imgPreview" id="previewImg0" src="" />
-                        <input type="hidden" name="productImage[]['path']" id="path0" value="" />
+                        <input type="hidden" name="productImage[0][path]" id="path0" value="" />
+                        @if($errors->has('productImage.*.file'))
+                            <div class="error text-danger">{{ $errors->first('productImage.*.file') }}</div>
+                        @endif
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[]['description_image']"></textarea>
+                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[0][description_image]"></textarea>
+                        @if($errors->has('productImage.*.description_image'))
+                            <div class="error text-danger">{{ $errors->first('productImage.*.description_image') }}</div>
+                        @endif
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-primary delete-area" data-index="0">Delete</button>
                     </div>
+                    <input type="hidden" name="productImage[0][id]" value="" />
                 </div>
+                @else
+
+                @foreach ($productImages as $key => $item)
+                <div class="form-group row area-image" data-index="{{ $key }}">
+                    <label for="name" class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-2">
+                        <input type="file" data-index="{{ $key }}" name="productImage[{{ $key }}][file]" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
+                        <img class="imgPreview" id="previewImg{{ $key }}" src="" />
+                        <input type="hidden" name="productImage[{{ $key }}][path]" id="path{{ $key }}" value="" />
+                        @if($errors->has('productImage.*.file'))
+                            <div class="error text-danger">{{ $errors->first('productImage.*.file') }}</div>
+                        @endif
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[{{ $key }}][description_image]"></textarea>
+                        @if($errors->has('productImage.*.description_image'))
+                            <div class="error text-danger">{{ $errors->first('productImage.*.description_image') }}</div>
+                        @endif
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary delete-area" data-index="{{ $key }}">Delete</button>
+                    </div>
+                    <input type="hidden" name="productImage[{{ $key }}][id]" value="" />
+                </div>
+                @endforeach
+
+                @endif
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
@@ -48,16 +91,17 @@
     <div class="form-group row area-image" data-index="xxx">
         <label for="name" class="col-sm-2 col-form-label">Image</label>
         <div class="col-sm-2">
-            <input type="file" data-index="xxx" name="productImage[]['file']" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
+            <input type="file" data-index="xxx" name="productImage[xxx]['file']" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
             <img class="imgPreview" id="previewImgxxx" src="" />
-            <input type="hidden" name="productImage[]['path']" id="pathxxx" value="" />
+            <input type="hidden" name="productImage[xxx]['path']" id="pathxxx" value="" />
         </div>
         <div class="col-sm-6">
-            <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[]['description_image']"></textarea>
+            <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[xxx]['description_image']"></textarea>
         </div>
         <div class="col-sm-2">
             <button type="button" class="btn btn-primary delete-area" data-index="xxx">Delete</button>
         </div>
+        <input type="hidden" name="productImage[xxx][id]" value="" />
     </div>
 </div>
 
