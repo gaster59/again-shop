@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2020 at 06:20 PM
+-- Generation Time: Aug 21, 2020 at 02:37 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -484,6 +484,7 @@ CREATE TABLE `products` (
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `summary` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar_thumb` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `meta_tags` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `meta_description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
@@ -501,8 +502,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `summary`, `avatar`, `meta_tags`, `meta_description`, `price`, `price_down`, `sort_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, '123666', '123666', '<p>1236556</p>', 'http://test.organi.com/avatar/img1.jpg', '12aaaa', 'aa', 1238787, 0, 1, '2020-08-15 11:41:20', 1, '2020-08-16 00:39:54', NULL, NULL, NULL);
+INSERT INTO `products` (`id`, `name`, `description`, `summary`, `avatar`, `avatar_thumb`, `meta_tags`, `meta_description`, `price`, `price_down`, `sort_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, '123', '12321', '<p>12312312</p>', 'http://test.organi.com/avatar/1/img.jpg', 'http://test.organi.com/avatar/1/', 'ytytyt', 'ytytytyt', 21321, 0, 1, '2020-08-20 09:35:03', 1, '2020-08-20 09:35:04', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -523,7 +524,10 @@ CREATE TABLE `product_categories` (
 --
 
 INSERT INTO `product_categories` (`id`, `category_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(7, 6, 1, '2020-08-16 06:11:20', '2020-08-16 06:11:20');
+(7, 6, 1, '2020-08-16 06:11:20', '2020-08-16 06:11:20'),
+(8, 6, 4, '2020-08-20 09:13:38', '2020-08-20 09:13:38'),
+(9, 7, 1, '2020-08-20 09:21:35', '2020-08-20 09:21:35'),
+(10, 7, 1, '2020-08-20 09:35:04', '2020-08-20 09:35:04');
 
 -- --------------------------------------------------------
 
@@ -535,6 +539,7 @@ CREATE TABLE `product_images` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `path` int(11) NOT NULL,
+  `path_thumb` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description_image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -718,7 +723,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product_images`
