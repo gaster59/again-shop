@@ -130,8 +130,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'productImage.*.path' => [
+            'image_base64' => 'Please choose image',
         ],
     ],
 
@@ -146,6 +146,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        
+    ],
 
 ];

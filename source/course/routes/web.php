@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Front'], function () {
 
 Route::get('admin/login', "Admin\LoginController@index")->name('admin.login.index');
 Route::post('admin/doLogin', "Admin\LoginController@login")->name('admin.doLogin.index');
+Route::get('admin/logout', "Admin\LoginController@logout")->name('admin.logout.index');
 Route::get('admin/temp', "Admin\LoginController@temp")->name('admin.login.temp');
 
 // Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], function () {

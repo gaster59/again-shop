@@ -6,7 +6,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
         <li><a href="{{ route('admin.product.index') }}">Product</a></li>
-        <li class="active">Add</li>
+        <li class="active">Add image</li>
     </ol>
 </div><!--/.row-->
 
@@ -20,20 +20,21 @@
             $productImages = old('productImage');
             //dd($productImages, count($productImages));
         }
+        //dd($errors);
         @endphp
 
         <form method="post" enctype="multipart/form-data" action="{{ route('admin.product.add.doimage', ['id' => $product->id]) }}">
             @csrf
             <div id="group-image">
                 @if(empty($productImages))
-                <div class="form-group row area-image" data-index="0">
+                <div class="form-group row area-image" id="area-image0">
                     <label for="name" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-2">
                         <input type="file" data-index="0" name="productImage[0][file]" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
                         <img class="imgPreview" id="previewImg0" src="" />
                         <input type="hidden" name="productImage[0][path]" id="path0" value="" />
-                        @if($errors->has('productImage.*.file'))
-                            <div class="error text-danger">{{ $errors->first('productImage.*.file') }}</div>
+                        @if($errors->has('productImage.*.path'))
+                            <div class="error text-danger">{{ $errors->first('productImage.*.path') }}</div>
                         @endif
                     </div>
                     <div class="col-sm-6">
@@ -43,33 +44,33 @@
                         @endif
                     </div>
                     <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary delete-area" data-index="0">Delete</button>
+                        <button type="button" class="btn btn-primary delete-area" data-index="0" onClick="deleteAreaImage(this);">Delete</button>
                     </div>
                     <input type="hidden" name="productImage[0][id]" value="" />
                 </div>
                 @else
 
                 @foreach ($productImages as $key => $item)
-                <div class="form-group row area-image" data-index="{{ $key }}">
+                <div class="form-group row area-image" id="area-image{{ $key }}">
                     <label for="name" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-2">
                         <input type="file" data-index="{{ $key }}" name="productImage[{{ $key }}][file]" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
-                        <img class="imgPreview" id="previewImg{{ $key }}" src="" />
-                        <input type="hidden" name="productImage[{{ $key }}][path]" id="path{{ $key }}" value="" />
-                        @if($errors->has('productImage.*.file'))
-                            <div class="error text-danger">{{ $errors->first('productImage.*.file') }}</div>
+                        <img class="imgPreview" id="previewImg{{ $key }}" src="{{ $item['path'] ?? '' }}" />
+                        <input type="hidden" name="productImage[{{ $key }}][path]" id="path{{ $key }}" value="{{ $item['path'] ?? '' }}" />
+                        @if($errors->has("productImage.$key.path"))
+                            <div class="error text-danger">{{ $errors->first("productImage.$key.path") }}</div>
                         @endif
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[{{ $key }}][description_image]"></textarea>
-                        @if($errors->has('productImage.*.description_image'))
-                            <div class="error text-danger">{{ $errors->first('productImage.*.description_image') }}</div>
+                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[{{ $key }}][description_image]">{{ $item['description_image'] ?? '' }}</textarea>
+                        @if($errors->has("productImage.$key.description_image"))
+                            <div class="error text-danger">{{ $errors->first("productImage.$key.description_image") }}</div>
                         @endif
                     </div>
                     <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary delete-area" data-index="{{ $key }}">Delete</button>
+                        <button type="button" class="btn btn-primary" data-index="{{ $key }}" onClick="deleteAreaImage(this);">Delete</button>
                     </div>
-                    <input type="hidden" name="productImage[{{ $key }}][id]" value="" />
+                    <input type="hidden" name="productImage[{{ $key }}][id]" value="{{ $item['id'] ?? '' }}" />
                 </div>
                 @endforeach
 
@@ -88,18 +89,18 @@
 </div><!--/.row-->
 
 <div class="draft">
-    <div class="form-group row area-image" data-index="xxx">
+    <div class="form-group row area-image" id="area-imagexxx">
         <label for="name" class="col-sm-2 col-form-label">Image</label>
         <div class="col-sm-2">
-            <input type="file" data-index="xxx" name="productImage[xxx]['file']" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
+            <input type="file" data-index="xxx" name="productImage[xxx][file]" class="form-control-file" accept="image/*" onchange="previewImage(this);" />
             <img class="imgPreview" id="previewImgxxx" src="" />
-            <input type="hidden" name="productImage[xxx]['path']" id="pathxxx" value="" />
+            <input type="hidden" name="productImage[xxx][path]" id="pathxxx" value="" />
         </div>
         <div class="col-sm-6">
             <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[xxx]['description_image']"></textarea>
         </div>
         <div class="col-sm-2">
-            <button type="button" class="btn btn-primary delete-area" data-index="xxx">Delete</button>
+            <button type="button" class="btn btn-primary" data-index="xxx" onClick="deleteAreaImage(this);">Delete</button>
         </div>
         <input type="hidden" name="productImage[xxx][id]" value="" />
     </div>
