@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Product;
+use App\Category;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap as TagSiteMap;
 use Spatie\Sitemap\Tags\Url;
@@ -12,14 +14,52 @@ use Spatie\Sitemap\Sitemap;
 
 class ShopController extends Controller
 {
+
+    private $paginateFrontEnd;
+    private $limitSell;
+    private $categories;
+
     public function __construct()
     {
+        $this->paginateFrontEnd = config('paginate.front-end');
+        $this->limitSell = 6;
 
+        $category = new Category();
+        $this->categories = $category->getCategories();
     }
 
     public function index(Request $request)
     {
-        return view('front.shop.index');
+        $product = new Product();
+        $products = $product->getProductsPaginate($this->paginateFrontEnd);
+        $productSell = $product->getProductsSell($this->limitSell);
+
+        return view('front.shop.index', [
+            'products' => $products,
+            'productSell' => $productSell,
+            'categories' => $this->categories
+        ]);
+    }
+
+    public function category($id, $name, Request $request)
+    {
+        $product = new Product();
+        $products = $product->getProductsByCategoryPaginate($id, $this->paginateFrontEnd);        
+        $productSell = $product->getProductsSell($this->limitSell);
+        return view('front.category.index', [
+            'products' => $products,
+            'productSell' => $productSell,
+            'categories' => $this->categories
+        ]);
+    }
+
+    public function product($id, $name, Request $request)
+    {
+        $product = new Product();
+        $product = $product->getDetailProduct($id);
+        return view('front.product.index', [
+            'products' => $product
+        ]);
     }
 
     public function siteMap(Request $request)

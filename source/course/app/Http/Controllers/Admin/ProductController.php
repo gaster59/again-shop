@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Http\Requests\ProductImageRequest;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductCategories;
+use App\ProductImage;
 use App\Services\AlertService;
 use App\Services\ImageService;
 use DB;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductImageRequest;
 
 class ProductController extends BaseAdminController
 {
@@ -159,7 +160,9 @@ class ProductController extends BaseAdminController
             ]);
 
             // upload product avatar
-            $product->avatar = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'avatar', $id);
+            $avatar                = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'avatar', $id);
+            $product->avatar       = $avatar[0];
+            $product->avatar_thumb = $avatar[1];
             $product->save();
 
             $this->productCategories->deleteCategoryFromProduct($id);
@@ -189,14 +192,83 @@ class ProductController extends BaseAdminController
             $this->alertService->saveSessionDanger("Product doesn't exists");
             return redirect(route('admin.product.index'));
         }
+
+        $productImage = new ProductImage();
+        $images       = $productImage->getImageByProduct($id)->toArray();
+        foreach ($images as &$image) {
+            $image['path'] = $this->imageService->convetImageToBase64($image['path']);
+        }
         return view('admin.product.add_image', [
-            'product' => $product
+            'product' => $product,
+            'images'  => $images,
         ]);
     }
 
-    public function storeImage(ProductImageRequest $request)
+    /**
+     * @method storeImage
+     * @param Integer $id
+     * @param ProductImageRequest $request
+     */
+    public function storeImage($id, ProductImageRequest $request)
     {
+        try {
+            DB::beginTransaction();
+            $productImages = $request->productImage ?? [];
+
+            $product = $this->product->getDetailProduct($id);
+            if (empty($product) || null == $product) {
+                $this->alertService->saveSessionDanger("Product doesn't exists");
+                return redirect(route('admin.product.index'));
+            }
+    
+            foreach ($productImages as $key => $productImage) {
+                if ('' == $productImage['id']) {
+                    $item                    = new ProductImage();
+                    $avatar                  = $this->imageService->saveProductImageBase64($productImage['path'], 'details', $id . $key, 'productImage');
+                    $item->product_id        = $id;
+                    $item->path              = $avatar[0];
+                    $item->path_thumb        = $avatar[1];
+                    $item->description_image = $productImage['description_image'];
+                    $item->save();
+                } else {
+                    $item = ProductImage::find($productImage['id']);
+                    $avatar = $this->imageService->saveProductImageBase64($productImage['path'], 'details', $id . $key, 'productImage');
+                    $item->path              = $avatar[0];
+                    $item->path_thumb        = $avatar[1];
+                    $item->description_image = $productImage['description_image'];
+                    $item->save();
+                }
+            }
+            $this->alertService->saveSessionSuccess('Product image saved successfully');
+            DB::commit();
+        } catch(Exception $ex) {
+            \Log::error($ex->getMessage());
+            $this->alertService->saveSessionSuccess('Product image saved unsuccessfully');
+            DB::rollBack();
+        }
         
+        return redirect(route('admin.product.index'));
+    }
+
+    /**
+     * @method deleteImage
+     */
+    public function deleteImage(Request $request)
+    {
+        $status = true;
+        try {
+            DB::beginTransaction();
+            $productImage = ProductImage::find($request->id);
+            $productImage->delete();
+            DB::commit(); 
+        } catch(Exception $ex) {
+            $status = false;
+            \Log::error($ex->getMessage());
+            DB::rollBack();
+        }
+        return response()->json([
+            'success' => $status
+        ]);
     }
 
 }

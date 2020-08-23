@@ -14,14 +14,28 @@ class Category extends Model
      *
      * @var string
      */
-    protected $table = 'categories';
+    protected $_table = 'categories';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $_fillable = [
+        'name',
+        'description',
+        'meta_tags',
+        'meta_description',
+        'created_by',
+        'updated_by',
+    ];
 
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $_guarded = [];
 
     /**
      * @method getCategories

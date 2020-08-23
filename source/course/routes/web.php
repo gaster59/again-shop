@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::group(['namespace' => 'Front'], function () {
+    $suffix = '.html';
     Route::get('/', "ShopController@index")->name('shop.index');
-    Route::get('/category/{id}', "ShopController@category")->name('shop.category.id');
-    Route::get('/search', "ShopController@search")->name('shop.search');
-    Route::get('/sitemap', "ShopController@siteMap")->name('shop.sitemap');
+    Route::get('/category/{id}-{name}'.$suffix, "ShopController@category")->name('shop.category.id');
+    Route::get('/product/{id}-{name}'.$suffix, "ShopController@product")->name('shop.product.id');
+    Route::get('/search'.$suffix, "ShopController@search")->name('shop.search');
+    Route::get('/sitemap'.$suffix, "ShopController@siteMap")->name('shop.sitemap');
 });
 
 Route::get('admin/login', "Admin\LoginController@index")->name('admin.login.index');
@@ -48,6 +50,7 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], funct
         Route::get('product/delete/{id}', "ProductController@delete")->name('admin.product.delete');
         Route::get('product/{id}/add-image', "ProductController@addImage")->name('admin.product.add.image');
         Route::post('product/{id}/add-image', "ProductController@storeImage")->name('admin.product.add.doimage');
+        Route::post('product/delete-image', "ProductController@deleteImage")->name('admin.product.add.deleteimage');
 
         Route::get('blog', "BlogController@index")->name('admin.blog.index');
 

@@ -38,14 +38,29 @@ class ImageService
             $urlImage = env('APP_URL') . $folder . '/' . $fileName;
             $pathImage = public_path($folder . '/' . $fileName);
 
-            $arrayThumbnail = config('thumbnail.avatar');
-            foreach ($arrayThumbnail as $thumbnail => $size) {
-                $pathThumb = $folder . "/$thumbnail";
-                $checkDirectory = $storage->exists($pathThumb);
-                if (!$checkDirectory) {
-                    $storage->makeDirectory($pathThumb);
-                }
-                \Image::make($pathImage)->resize($size[0],$size[1])->save(public_path($pathThumb . '/' . $fileName));
+            switch($type) {
+                case 'product':
+                    $arrayThumbnail = config('thumbnail.avatar');
+                    foreach ($arrayThumbnail as $thumbnail => $size) {
+                        $pathThumb = $folder . "/$thumbnail";
+                        $checkDirectory = $storage->exists($pathThumb);
+                        if (!$checkDirectory) {
+                            $storage->makeDirectory($pathThumb);
+                        }
+                        \Image::make($pathImage)->resize($size[0],$size[1])->save(public_path($pathThumb . '/' . $fileName));
+                    }
+                    break;
+                case 'productImage':
+                    $arrayThumbnail = config('thumbnail.details');
+                    foreach ($arrayThumbnail as $thumbnail => $size) {
+                        $pathThumb = $folder . "/$thumbnail";
+                        $checkDirectory = $storage->exists($pathThumb);
+                        if (!$checkDirectory) {
+                            $storage->makeDirectory($pathThumb);
+                        }
+                        \Image::make($pathImage)->resize($size[0],$size[1])->save(public_path($pathThumb . '/' . $fileName));
+                    }
+                    break;
             }
     
             return [
@@ -66,9 +81,7 @@ class ImageService
     public function convetImageToBase64($imageUrl)
     {
         $data = $this->imageToBase64($imageUrl);
-        dd($data);
-        $base64 = 'data:image/jpeg' . ';base64,' . base64_encode($data);
-        return $base64;
+        return $data;
     }
 
     /**
@@ -86,6 +99,10 @@ class ImageService
         }
     }
 
+    /**
+     * @method curl_get_contents
+     * @param String $url
+     */
     private function curl_get_contents($url)
     {
         $ch = curl_init();
@@ -101,6 +118,10 @@ class ImageService
         return $data;
     }
 
+    /**
+     * @method $image
+     * @param String $image
+     */
     private function imageToBase64($image){
         $imageData = base64_encode($this->curl_get_contents($image));
         $mime_types = array(
@@ -119,6 +140,6 @@ class ImageService
         if (array_key_exists($ext, $mime_types)) {
             $a = $mime_types[$ext];
         }
-        return 'data: '.$a.';base64,'.$imageData;
+        return 'data:'.$a.';base64,'.$imageData;
     }
 }

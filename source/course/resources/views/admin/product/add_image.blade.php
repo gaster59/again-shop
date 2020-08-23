@@ -16,11 +16,12 @@
         
         @php
         $productImages = [];
+        if(count($images) > 0) {
+            $productImages = $images;
+        }
         if(!empty(old('productImage'))) {
             $productImages = old('productImage');
-            //dd($productImages, count($productImages));
         }
-        //dd($errors);
         @endphp
 
         <form method="post" enctype="multipart/form-data" action="{{ route('admin.product.add.doimage', ['id' => $product->id]) }}">
@@ -46,7 +47,7 @@
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-primary delete-area" data-index="0" onClick="deleteAreaImage(this);">Delete</button>
                     </div>
-                    <input type="hidden" name="productImage[0][id]" value="" />
+                    <input type="hidden" name="productImage[0][id]" id="imageId0" value="" />
                 </div>
                 @else
 
@@ -70,7 +71,7 @@
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-primary" data-index="{{ $key }}" onClick="deleteAreaImage(this);">Delete</button>
                     </div>
-                    <input type="hidden" name="productImage[{{ $key }}][id]" value="{{ $item['id'] ?? '' }}" />
+                    <input type="hidden" name="productImage[{{ $key }}][id]" id="imageId{{ $key }}" value="{{ $item['id'] ?? '' }}" />
                 </div>
                 @endforeach
 
@@ -97,17 +98,20 @@
             <input type="hidden" name="productImage[xxx][path]" id="pathxxx" value="" />
         </div>
         <div class="col-sm-6">
-            <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[xxx]['description_image']"></textarea>
+            <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[xxx][description_image]"></textarea>
         </div>
         <div class="col-sm-2">
             <button type="button" class="btn btn-primary" data-index="xxx" onClick="deleteAreaImage(this);">Delete</button>
         </div>
-        <input type="hidden" name="productImage[xxx][id]" value="" />
+        <input type="hidden" name="productImage[xxx][id]" id="imageIdxxx" value="" />
     </div>
 </div>
 
 @endsection
 
 @section("js")
+<script type="text/javascript">
+    var urlDeleteImage = "{{ route('admin.product.add.deleteimage') }}";
+</script>
 <script type="text/javascript" src="{{ asset('admin/js/addimage.js') }}"></script>
 @endsection
