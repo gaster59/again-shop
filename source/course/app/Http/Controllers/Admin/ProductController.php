@@ -37,6 +37,7 @@ class ProductController extends BaseAdminController
      */
     public function index()
     {
+        $text = 'tôi đi học anh văn';
         $products = $this->product->getProducts();
         return view('admin.product.index', [
             'products' => $products,
