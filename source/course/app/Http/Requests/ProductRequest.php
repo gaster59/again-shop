@@ -8,12 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 class ProductRequest extends FormRequest
 {
 
-    private $__category;
-
-    public function __construct(Category $category)
+    public function __construct()
     {
         parent::__construct();
-        $this->category = $category;
     }
 
     /**
@@ -33,7 +30,8 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        $categories = $this->category->getCategories();
+        $category = new Category();
+        $categories = $category->getCategories();
         $inCategory = '';
         foreach($categories as $category)
         {
@@ -44,6 +42,7 @@ class ProductRequest extends FormRequest
         return [
             'avatar'           => 'image',
             'name'             => 'required|max:70',
+            'slug'             => 'max:150',
             'price'            => 'nullable|numeric',
             'price_down'       => 'nullable|numeric|lt:price',
             'description'      => 'max:200',

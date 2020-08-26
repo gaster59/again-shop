@@ -37,7 +37,6 @@ class ProductController extends BaseAdminController
      */
     public function index()
     {
-        $text = 'tôi đi học anh văn';
         $products = $this->product->getProducts();
         return view('admin.product.index', [
             'products' => $products,
@@ -69,6 +68,7 @@ class ProductController extends BaseAdminController
             $auth            = \Auth::guard('admin')->user();
             $productInserted = $this->product->create([
                 'name'             => $request->name,
+                'slug'             => $request->slug,
                 'description'      => $request->description,
                 'summary'          => $request->summary,
                 'avatar'           => '',
@@ -152,6 +152,7 @@ class ProductController extends BaseAdminController
 
             $product->update([
                 'name'             => $request->name,
+                'slug'             => $request->slug,
                 'description'      => $request->description,
                 'summary'          => $request->summary,
                 'price'            => $request->price ?? '',
