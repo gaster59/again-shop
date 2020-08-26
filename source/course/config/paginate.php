@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'back-end'  => 20,
-    'front-end' => 16,
+    'back-end'  => 10,
+    'front-end' => 12,
 ];

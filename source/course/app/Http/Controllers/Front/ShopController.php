@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
+use App\ProductImage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap as TagSiteMap;
 use Spatie\Sitemap\Tags\Url;
@@ -57,8 +58,31 @@ class ShopController extends Controller
     {
         $product = new Product();
         $product = $product->getDetailProduct($id);
+
+        $productImage = new ProductImage();
+        $productImages = $productImage->getImageByProduct($id);
+
+        $firstImage = $product->avatar_thumb.'thumb2/img.jpg';
+
+        $images = [];
+        $images[] = [
+            $product->avatar_thumb.'thumb3/img.jpg',
+            $product->avatar_thumb.'thumb2/img.jpg'
+        ];
+
+        foreach($productImages as $item) {
+            $images[] = [
+                $item->path_thumb.'thumb2/img.jpg',
+                $item->path_thumb.'thumb1/img.jpg'
+            ];
+        }
+        // dd($images,1, $productImages, count($images));
+        
+
         return view('front.product.index', [
-            'products' => $product
+            'product' => $product,
+            'images' => $images,
+            'firstImage' => $firstImage
         ]);
     }
 

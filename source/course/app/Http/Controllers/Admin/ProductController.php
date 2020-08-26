@@ -21,6 +21,7 @@ class ProductController extends BaseAdminController
     private $__imageService;
     private $__alertService;
     private $__productCategories;
+    private $paging;
 
     public function __construct(Product $product, Category $category, ImageService $imageService, AlertService $alertService, ProductCategories $productCategories)
     {
@@ -29,6 +30,7 @@ class ProductController extends BaseAdminController
         $this->imageService      = $imageService;
         $this->alertService      = $alertService;
         $this->productCategories = $productCategories;
+        $this->paging = config('paginate.back-end');
     }
 
     /**
@@ -37,7 +39,7 @@ class ProductController extends BaseAdminController
      */
     public function index()
     {
-        $products = $this->product->getProducts();
+        $products = $this->product->getProductsPaginate($this->paging);
         return view('admin.product.index', [
             'products' => $products,
         ]);
@@ -68,7 +70,7 @@ class ProductController extends BaseAdminController
             $auth            = \Auth::guard('admin')->user();
             $productInserted = $this->product->create([
                 'name'             => $request->name,
-                'slug'             => $request->slug,
+                'slug'             => $request->slug ?? '',
                 'description'      => $request->description,
                 'summary'          => $request->summary,
                 'avatar'           => '',
@@ -152,7 +154,7 @@ class ProductController extends BaseAdminController
 
             $product->update([
                 'name'             => $request->name,
-                'slug'             => $request->slug,
+                'slug'             => $request->slug ?? '',
                 'description'      => $request->description,
                 'summary'          => $request->summary,
                 'price'            => $request->price ?? '',

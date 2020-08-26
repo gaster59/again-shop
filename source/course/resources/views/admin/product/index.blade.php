@@ -42,6 +42,13 @@
             </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-center">
+                    {!! $products->links() !!}
+                </td>
+            </tr>
+        </tfoot>
         </table>
     </div>
 </div><!--/.row-->
