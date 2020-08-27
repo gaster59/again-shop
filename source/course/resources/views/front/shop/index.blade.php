@@ -138,7 +138,10 @@
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="{{ route('shop.product.id', ['id' => $product->id, 'name' => $product->slug]) }}">{{ $product->name }}</a></h6>
+                                @php
+                                $link = route('shop.product.id', [ "id" => $product->id, "name" => $product->slug ]);
+                                @endphp
+                                <h6><a href="{{ $link }}">{{ $product->name }}</a></h6>
                                 <h5>{{ number_format($product->price) }}</h5>
                             </div>
                         </div>

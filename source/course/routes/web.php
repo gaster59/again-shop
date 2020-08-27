@@ -53,6 +53,11 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], funct
         Route::post('product/delete-image', "ProductController@deleteImage")->name('admin.product.add.deleteimage');
 
         Route::get('blog', "BlogController@index")->name('admin.blog.index');
+        Route::get('blog/add', "ProductController@add")->name('admin.blog.add');
+        Route::post('blog/doAdd', "ProductController@store")->name('admin.blog.doAdd');
+        Route::get('blog/edit/{id}', "ProductController@edit")->name('admin.blog.edit');
+        Route::post('blog/edit/{id}', "ProductController@update")->name('admin.blog.doEdit');
+        Route::get('blog/delete/{id}', "ProductController@delete")->name('admin.blog.delete');
 
         Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
     });

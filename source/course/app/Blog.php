@@ -17,6 +17,25 @@ class Blog extends Model
     protected $table = 'blogs';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'summary',
+        'avatar',
+        'avatar_thumb',
+        'meta_tags',
+        'meta_description',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+    ];
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -36,6 +55,17 @@ class Blog extends Model
             'avatar',
         ];
         $result = $this->select($fields)->get();
+        return $result;
+    }
+
+    /**
+     * @method getBlogsPaginate
+     * @param Integer $limit
+     * @return Array
+     */
+    public function getBlogsPaginate($limit)
+    {
+        $result = $this->paginate($limit);
         return $result;
     }
 

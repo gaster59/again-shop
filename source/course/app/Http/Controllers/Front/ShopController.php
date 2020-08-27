@@ -19,11 +19,14 @@ class ShopController extends Controller
     private $paginateFrontEnd;
     private $limitSell;
     private $categories;
+    private $product;
 
-    public function __construct()
+    public function __construct(Product $product)
     {
         $this->paginateFrontEnd = config('paginate.front-end');
         $this->limitSell = 6;
+
+        $this->product = $product;
 
         $category = new Category();
         $this->categories = $category->getCategories();
@@ -31,10 +34,10 @@ class ShopController extends Controller
 
     public function index(Request $request)
     {
-        $product = new Product();
-        $products = $product->getProductsPaginate($this->paginateFrontEnd);
-        $productSell = $product->getProductsSell($this->limitSell);
+        $products = $this->product->getProductsPaginate($this->paginateFrontEnd);
+        $productSell = $this->product->getProductsSell($this->limitSell);
 
+        // dd($products,2);
         return view('front.shop.index', [
             'products' => $products,
             'productSell' => $productSell,
@@ -61,7 +64,7 @@ class ShopController extends Controller
 
         $productImage = new ProductImage();
         $productImages = $productImage->getImageByProduct($id);
-
+                
         $firstImage = $product->avatar_thumb.'thumb2/img.jpg';
 
         $images = [];

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2020 at 04:11 PM
+-- Generation Time: Aug 27, 2020 at 07:37 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -30,9 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `blogs` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `summary` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar_thumb` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sort_order` int(11) NOT NULL,
   `meta_tags` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `meta_description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -481,6 +483,7 @@ CREATE TABLE `order_detail` (
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `summary` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -502,24 +505,28 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `summary`, `avatar`, `avatar_thumb`, `meta_tags`, `meta_description`, `price`, `price_down`, `sort_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'cucamelon', 'cucamelon', '<p>cucamelon</p>', 'http://test.organi.com/avatar/1/img.jpg', 'http://test.organi.com/avatar/1/', 'cucamelon', 'cucamelon', 20000, 0, 1, '2020-08-23 03:09:07', 1, '2020-08-23 03:31:22', NULL, NULL, NULL),
-(2, 'celery organic', 'celery organic', '<p>celery organic</p>', 'http://test.organi.com/avatar/2/img.jpg', 'http://test.organi.com/avatar/2/', 'celery organic', 'celery organic', 5000, 0, 2, '2020-08-23 03:14:34', 1, '2020-08-23 03:14:34', NULL, NULL, NULL),
-(3, 'Chilli red organic', 'Chilli red organic', '<p>Chilli red organic</p>', 'http://test.organi.com/avatar/3/img.jpg', 'http://test.organi.com/avatar/3/', 'Chilli red organic', 'Chilli red organic', 31500, 0, 3, '2020-08-23 03:16:50', 1, '2020-08-23 03:16:50', NULL, NULL, NULL),
-(4, 'Banana organic', 'Banana organic', '<p>Banana organic</p>', 'http://test.organi.com/avatar/4/img.jpg', 'http://test.organi.com/avatar/4/', 'Banana organic', 'Banana organic', 41500, 0, 4, '2020-08-23 03:18:32', 1, '2020-08-23 03:18:32', NULL, NULL, NULL),
-(5, 'Gourd organic', 'Gourd organic', '<p>Gourd organic</p>', 'http://test.organi.com/avatar/5/img.jpg', 'http://test.organi.com/avatar/5/', 'Gourd organic', 'Gourd organic', 45000, 0, 5, '2020-08-23 03:19:42', 1, '2020-08-23 03:19:42', NULL, NULL, NULL),
-(6, 'Green apple', 'Green apple', '<p>Green apple</p>', 'http://test.organi.com/avatar/6/img.jpg', 'http://test.organi.com/avatar/6/', 'Green apple', 'Green apple', 49500, 0, 6, '2020-08-23 03:20:44', 1, '2020-08-23 03:20:45', NULL, NULL, NULL),
-(7, 'Bamboo leaves', 'Bamboo leaves', '<p>Bamboo leaves</p>', 'http://test.organi.com/avatar/7/img.jpg', 'http://test.organi.com/avatar/7/', 'Bamboo leaves', 'Bamboo leaves', 77000, 0, 7, '2020-08-23 03:21:58', 1, '2020-08-23 03:21:58', NULL, NULL, NULL),
-(8, 'Chocomint organic', 'Chocomint organic', '<p>Chocomint organic</p>', 'http://test.organi.com/avatar/8/img.jpg', 'http://test.organi.com/avatar/8/', 'Chocomint organic', 'Chocomint organic', 12600, 0, 8, '2020-08-23 03:22:50', 1, '2020-08-23 03:22:50', NULL, NULL, NULL),
-(9, 'Beef tomato organic', 'Beef tomato organic', '<p>Beef tomato organic</p>', 'http://test.organi.com/avatar/9/img.jpg', 'http://test.organi.com/avatar/9/', 'Beef tomato organic', 'Beef tomato organic', 12000, 0, 9, '2020-08-23 03:23:34', 1, '2020-08-23 03:23:34', NULL, NULL, NULL),
-(10, 'Baby carrot organic', 'Baby carrot organic', '<p>Baby carrot organic</p>', 'http://test.organi.com/avatar/10/img.jpg', 'http://test.organi.com/avatar/10/', 'Baby carrot organic', 'Baby carrot organic', 58000, 0, 10, '2020-08-23 03:24:18', 1, '2020-08-23 03:24:18', NULL, NULL, NULL),
-(11, 'Rice color egg', 'Rice color egg', '<p>Rice color egg</p>', 'http://test.organi.com/avatar/11/img.jpg', 'http://test.organi.com/avatar/11/', 'Rice color egg', 'Rice color egg', 38000, 0, 11, '2020-08-23 03:26:06', 1, '2020-08-23 03:26:06', NULL, NULL, NULL),
-(12, 'erynjii mushroom', 'erynjii mushroom', '<p>erynjii mushroom</p>', 'http://test.organi.com/avatar/12/img.jpg', 'http://test.organi.com/avatar/12/', 'erynjii mushroom', 'erynjii mushroom', 26000, 0, 12, '2020-08-23 03:26:48', 1, '2020-08-23 03:26:48', NULL, NULL, NULL),
-(13, 'Yellow lemon USA', 'Yellow lemon USA', '<p>Yellow lemon USA</p>', 'http://test.organi.com/avatar/13/img.jpg', 'http://test.organi.com/avatar/13/', 'Yellow lemon USA', 'Yellow lemon USA', 62500, 0, 13, '2020-08-23 03:27:53', 1, '2020-08-23 03:27:53', NULL, NULL, NULL),
-(14, 'Shiitake-Mushroom 2', 'Shiitake-Mushroom 2', '<p>Shiitake-Mushroom 2</p>', 'http://test.organi.com/avatar/14/img.jpg', 'http://test.organi.com/avatar/14/', 'Shiitake-Mushroom 2', 'Shiitake-Mushroom 2', 30000, 0, 14, '2020-08-23 03:28:28', 1, '2020-08-23 03:28:28', NULL, NULL, NULL),
-(15, 'Button Mushroom 1', 'Button Mushroom 1', '<p>Button Mushroom 1</p>', 'http://test.organi.com/avatar/15/img.jpg', 'http://test.organi.com/avatar/15/', 'Button Mushroom 1', 'Button Mushroom 1', 45000, 0, 15, '2020-08-23 03:29:00', 1, '2020-08-23 03:29:00', NULL, NULL, NULL),
-(16, 'APPLE CIDE VINEGAR', 'APPLE CIDE VINEGAR', '<p>APPLE CIDE VINEGAR</p>', 'http://test.organi.com/avatar/16/img.jpg', 'http://test.organi.com/avatar/16/', 'APPLE CIDE VINEGAR', 'APPLE CIDE VINEGAR', 154000, 0, 16, '2020-08-23 03:30:01', 1, '2020-08-23 03:30:01', NULL, NULL, NULL),
-(17, 'Mushroom Kinoko gap', 'Mushroom Kinoko gap', '<p>Mushroom Kinoko gap</p>', 'http://test.organi.com/avatar/17/img.jpg', 'http://test.organi.com/avatar/17/', 'Mushroom Kinoko gap', 'Mushroom Kinoko gap', 24000, 0, 17, '2020-08-23 03:31:01', 1, '2020-08-23 03:31:01', NULL, NULL, NULL);
+INSERT INTO `products` (`id`, `name`, `slug`, `description`, `summary`, `avatar`, `avatar_thumb`, `meta_tags`, `meta_description`, `price`, `price_down`, `sort_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 'cucamelon', 'cucamelon', 'cucamelon', '<p>cucamelon</p>', 'http://test.organi.com/avatar/1/img.jpg', 'http://test.organi.com/avatar/1/', 'cucamelon', 'cucamelon', 20000, 0, 1, '2020-08-23 03:09:07', 1, '2020-08-27 10:28:04', 1, NULL, NULL),
+(2, 'celery organic', 'celery-organic', 'celery organic', '<p>celery organic</p>', 'http://test.organi.com/avatar/2/img.jpg', 'http://test.organi.com/avatar/2/', 'celery organic', 'celery organic', 5000, 0, 2, '2020-08-23 03:14:34', 1, '2020-08-26 07:15:56', NULL, NULL, NULL),
+(3, 'Chilli red organic', 'chilli-red-organic', 'Chilli red organic', '<p>Chilli red organic</p>', 'http://test.organi.com/avatar/3/img.jpg', 'http://test.organi.com/avatar/3/', 'Chilli red organic', 'Chilli red organic', 31500, 0, 3, '2020-08-23 03:16:50', 1, '2020-08-26 07:16:33', NULL, NULL, NULL),
+(4, 'Banana organic', 'banana-organic', 'Banana organic', '<p>Banana organic</p>', 'http://test.organi.com/avatar/4/img.jpg', 'http://test.organi.com/avatar/4/', 'Banana organic', 'Banana organic', 41500, 0, 4, '2020-08-23 03:18:32', 1, '2020-08-26 07:16:47', NULL, NULL, NULL),
+(5, 'Gourd organic', 'gourd-organic', 'Gourd organic', '<p>Gourd organic</p>', 'http://test.organi.com/avatar/5/img.jpg', 'http://test.organi.com/avatar/5/', 'Gourd organic', 'Gourd organic', 45000, 0, 5, '2020-08-23 03:19:42', 1, '2020-08-26 07:17:01', NULL, NULL, NULL),
+(6, 'Green apple', 'green-apple', 'Green apple', '<p>Green apple</p>', 'http://test.organi.com/avatar/6/img.jpg', 'http://test.organi.com/avatar/6/', 'Green apple', 'Green apple', 49500, 0, 6, '2020-08-23 03:20:44', 1, '2020-08-26 07:17:13', NULL, NULL, NULL),
+(7, 'Bamboo leaves', 'bamboo-leaves', 'Bamboo leaves', '<p>Bamboo leaves</p>', 'http://test.organi.com/avatar/7/img.jpg', 'http://test.organi.com/avatar/7/', 'Bamboo leaves', 'Bamboo leaves', 77000, 0, 7, '2020-08-23 03:21:58', 1, '2020-08-26 07:17:27', NULL, NULL, NULL),
+(8, 'Chocomint organic', 'chocomint-organic', 'Chocomint organic', '<p>Chocomint organic</p>', 'http://test.organi.com/avatar/8/img.jpg', 'http://test.organi.com/avatar/8/', 'Chocomint organic', 'Chocomint organic', 12600, 0, 8, '2020-08-23 03:22:50', 1, '2020-08-26 07:17:42', NULL, NULL, NULL),
+(9, 'Beef tomato organic', 'beef-tomato-organic', 'Beef tomato organic', '<p>Beef tomato organic</p>', 'http://test.organi.com/avatar/9/img.jpg', 'http://test.organi.com/avatar/9/', 'Beef tomato organic', 'Beef tomato organic', 12000, 0, 9, '2020-08-23 03:23:34', 1, '2020-08-26 07:17:59', NULL, NULL, NULL),
+(10, 'Baby carrot organic', 'baby-carrot-organic', 'Baby carrot organic', '<p>Baby carrot organic</p>', 'http://test.organi.com/avatar/10/img.jpg', 'http://test.organi.com/avatar/10/', 'Baby carrot organic', 'Baby carrot organic', 58000, 0, 10, '2020-08-23 03:24:18', 1, '2020-08-26 07:18:15', NULL, NULL, NULL),
+(11, 'Rice color egg', 'rice-color-egg', 'Rice color egg', '<p>Rice color egg</p>', 'http://test.organi.com/avatar/11/img.jpg', 'http://test.organi.com/avatar/11/', 'Rice color egg', 'Rice color egg', 38000, 0, 11, '2020-08-23 03:26:06', 1, '2020-08-26 07:18:29', NULL, NULL, NULL),
+(12, 'erynjii mushroom', 'erynjii-mushroom', 'erynjii mushroom', '<p>erynjii mushroom</p>', 'http://test.organi.com/avatar/12/img.jpg', 'http://test.organi.com/avatar/12/', 'erynjii mushroom', 'erynjii mushroom', 26000, 0, 12, '2020-08-23 03:26:48', 1, '2020-08-26 07:18:45', NULL, NULL, NULL),
+(13, 'Yellow lemon USA', 'yellow-lemon-USA', 'Yellow lemon USA', '<p>Yellow lemon USA</p>', 'http://test.organi.com/avatar/13/img.jpg', 'http://test.organi.com/avatar/13/', 'Yellow lemon USA', 'Yellow lemon USA', 62500, 0, 13, '2020-08-23 03:27:53', 1, '2020-08-26 07:19:03', NULL, NULL, NULL),
+(14, 'Shiitake-Mushroom 2', 'Shiitake-Mushroom-2', 'Shiitake-Mushroom 2', '<p>Shiitake-Mushroom 2</p>', 'http://test.organi.com/avatar/14/img.jpg', 'http://test.organi.com/avatar/14/', 'Shiitake-Mushroom 2', 'Shiitake-Mushroom 2', 30000, 0, 14, '2020-08-23 03:28:28', 1, '2020-08-26 07:19:33', NULL, NULL, NULL),
+(15, 'Button Mushroom 1', 'button-mushroom-1', 'Button Mushroom 1', '<p>Button Mushroom 1</p>', 'http://test.organi.com/avatar/15/img.jpg', 'http://test.organi.com/avatar/15/', 'Button Mushroom 1', 'Button Mushroom 1', 45000, 0, 15, '2020-08-23 03:29:00', 1, '2020-08-23 03:29:00', NULL, NULL, NULL),
+(16, 'APPLE CIDE VINEGAR', 'apple-cide-vinegar', 'APPLE CIDE VINEGAR', '<p>APPLE CIDE VINEGAR</p>', 'http://test.organi.com/avatar/16/img.jpg', 'http://test.organi.com/avatar/16/', 'APPLE CIDE VINEGAR', 'APPLE CIDE VINEGAR', 154000, 0, 16, '2020-08-23 03:30:01', 1, '2020-08-26 07:20:58', NULL, NULL, NULL),
+(17, 'Mushroom Kinoko gap', 'mushroom-kinoko-gap', 'Mushroom Kinoko gap', '<p>Mushroom Kinoko gap</p>', 'http://test.organi.com/avatar/17/img.jpg', 'http://test.organi.com/avatar/17/', 'Mushroom Kinoko gap', 'Mushroom Kinoko gap', 24000, 0, 17, '2020-08-23 03:31:01', 1, '2020-08-26 07:21:16', NULL, NULL, NULL),
+(18, 'Cải dún hữu cơ', 'cai-dun-huu-co', 'Cải dún hữu cơ', '<p>Cải d&uacute;n hữu cơ</p>', 'http://test.organi.com/avatar/18/img.jpg', 'http://test.organi.com/avatar/18/', 'Cải dún hữu cơ', 'Cải dún hữu cơ', 23750, 0, 18, '2020-08-26 07:15:04', 1, '2020-08-26 07:15:04', NULL, NULL, NULL),
+(19, 'Bắp cải tím hữu cơ', 'bap-cai-tim-huu-co', 'Bắp cải tím hữu cơ', '<p>Bắp cải t&iacute;m hữu cơ</p>', 'http://test.organi.com/avatar/19/img.jpg', 'http://test.organi.com/avatar/19/', 'Bắp cải tím hữu cơ', 'Bắp cải tím hữu cơ', 34000, 0, 19, '2020-08-26 07:22:07', 1, '2020-08-26 07:22:07', NULL, NULL, NULL),
+(20, 'Bắp bò hữu cơ obe', 'bap-bo-huu-co-obe', 'Bắp bò hữu cơ obe', '<p>Bắp b&ograve; hữu cơ obe</p>', 'http://test.organi.com/avatar/20/img.jpg', 'http://test.organi.com/avatar/20/', 'Bắp bò hữu cơ obe', 'Bắp bò hữu cơ obe', 205500, 0, 20, '2020-08-26 07:22:51', 1, '2020-08-26 07:22:51', NULL, NULL, NULL),
+(21, 'Mồng tơi hữu cơ', 'mong-toi-huu-co', 'Mồng tơi hữu cơ', '<p>Mồng tơi hữu cơ</p>', 'http://test.organi.com/avatar/21/img.jpg', 'http://test.organi.com/avatar/21/', 'Mồng tơi hữu cơ', 'Mồng tơi hữu cơ', 20000, 0, 21, '2020-08-26 07:23:32', 1, '2020-08-26 07:23:32', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -540,23 +547,27 @@ CREATE TABLE `product_categories` (
 --
 
 INSERT INTO `product_categories` (`id`, `category_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(2, 4, 2, '2020-08-23 03:14:34', '2020-08-23 03:14:34'),
-(3, 4, 3, '2020-08-23 03:16:50', '2020-08-23 03:16:50'),
-(4, 5, 4, '2020-08-23 03:18:32', '2020-08-23 03:18:32'),
-(5, 5, 5, '2020-08-23 03:19:42', '2020-08-23 03:19:42'),
-(6, 5, 6, '2020-08-23 03:20:45', '2020-08-23 03:20:45'),
-(7, 4, 7, '2020-08-23 03:21:58', '2020-08-23 03:21:58'),
-(8, 10, 8, '2020-08-23 03:22:50', '2020-08-23 03:22:50'),
-(9, 5, 9, '2020-08-23 03:23:34', '2020-08-23 03:23:34'),
-(10, 6, 10, '2020-08-23 03:24:18', '2020-08-23 03:24:18'),
-(11, 8, 11, '2020-08-23 03:26:06', '2020-08-23 03:26:06'),
-(12, 6, 12, '2020-08-23 03:26:48', '2020-08-23 03:26:48'),
-(13, 10, 13, '2020-08-23 03:27:53', '2020-08-23 03:27:53'),
-(14, 10, 14, '2020-08-23 03:28:28', '2020-08-23 03:28:28'),
 (15, 10, 15, '2020-08-23 03:29:00', '2020-08-23 03:29:00'),
-(16, 12, 16, '2020-08-23 03:30:01', '2020-08-23 03:30:01'),
-(17, 11, 17, '2020-08-23 03:31:01', '2020-08-23 03:31:01'),
-(19, 4, 1, '2020-08-23 03:31:22', '2020-08-23 03:31:22');
+(20, 4, 18, '2020-08-26 07:15:04', '2020-08-26 07:15:04'),
+(22, 4, 2, '2020-08-26 07:15:56', '2020-08-26 07:15:56'),
+(23, 4, 3, '2020-08-26 07:16:33', '2020-08-26 07:16:33'),
+(24, 5, 4, '2020-08-26 07:16:47', '2020-08-26 07:16:47'),
+(25, 5, 5, '2020-08-26 07:17:01', '2020-08-26 07:17:01'),
+(26, 5, 6, '2020-08-26 07:17:13', '2020-08-26 07:17:13'),
+(27, 4, 7, '2020-08-26 07:17:27', '2020-08-26 07:17:27'),
+(28, 10, 8, '2020-08-26 07:17:43', '2020-08-26 07:17:43'),
+(29, 5, 9, '2020-08-26 07:17:59', '2020-08-26 07:17:59'),
+(30, 6, 10, '2020-08-26 07:18:15', '2020-08-26 07:18:15'),
+(31, 8, 11, '2020-08-26 07:18:29', '2020-08-26 07:18:29'),
+(32, 6, 12, '2020-08-26 07:18:45', '2020-08-26 07:18:45'),
+(33, 10, 13, '2020-08-26 07:19:03', '2020-08-26 07:19:03'),
+(34, 10, 14, '2020-08-26 07:19:33', '2020-08-26 07:19:33'),
+(35, 12, 16, '2020-08-26 07:20:59', '2020-08-26 07:20:59'),
+(36, 11, 17, '2020-08-26 07:21:16', '2020-08-26 07:21:16'),
+(37, 4, 19, '2020-08-26 07:22:07', '2020-08-26 07:22:07'),
+(38, 3, 20, '2020-08-26 07:22:51', '2020-08-26 07:22:51'),
+(39, 4, 21, '2020-08-26 07:23:32', '2020-08-26 07:23:32'),
+(40, 4, 1, '2020-08-27 10:28:05', '2020-08-27 10:28:05');
 
 -- --------------------------------------------------------
 
@@ -573,6 +584,15 @@ CREATE TABLE `product_images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `path`, `path_thumb`, `description_image`, `created_at`, `updated_at`) VALUES
+(5, 1, 'http://test.organi.com/details/10/img.jpg', 'http://test.organi.com/details/10/', 'cucamelon', '2020-08-26 09:10:47', '2020-08-26 09:10:47'),
+(6, 1, 'http://test.organi.com/details/11/img.jpg', 'http://test.organi.com/details/11/', 'cucamelon', '2020-08-26 09:10:47', '2020-08-26 09:10:47'),
+(7, 1, 'http://test.organi.com/details/12/img.jpg', 'http://test.organi.com/details/12/', 'cucamelon', '2020-08-26 09:10:47', '2020-08-26 09:10:47');
 
 -- --------------------------------------------------------
 
@@ -746,19 +766,19 @@ ALTER TABLE `order_detail`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

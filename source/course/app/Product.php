@@ -34,6 +34,7 @@ class Product extends Model
         'price_down',
         'created_by',
         'updated_by',
+        'deleted_by',
     ];
 
     /**

@@ -21,7 +21,7 @@ class ProductController extends BaseAdminController
     private $__imageService;
     private $__alertService;
     private $__productCategories;
-    private $paging;
+    private $__paging;
 
     public function __construct(Product $product, Category $category, ImageService $imageService, AlertService $alertService, ProductCategories $productCategories)
     {
@@ -30,7 +30,7 @@ class ProductController extends BaseAdminController
         $this->imageService      = $imageService;
         $this->alertService      = $alertService;
         $this->productCategories = $productCategories;
-        $this->paging = config('paginate.back-end');
+        $this->paging            = config('paginate.back-end');
     }
 
     /**
@@ -161,6 +161,7 @@ class ProductController extends BaseAdminController
                 'price_down'       => $request->price_down,
                 'meta_tags'        => $request->meta_tags,
                 'meta_description' => $request->meta_description,
+                'updated_by'       => $auth->id,
             ]);
 
             // upload product avatar
@@ -180,6 +181,27 @@ class ProductController extends BaseAdminController
             $this->alertService->saveSessionDanger('Product saved unsuccessfully');
             \Log::error($ex->getMessage());
             DB::rollBack();
+        }
+        return redirect(route('admin.product.index'));
+    }
+
+    public function delete($id)
+    {
+        try {
+            $auth    = \Auth::guard('admin')->user();
+            $product = $this->product->getDetailProduct($id);
+            if (null == $product) {
+                $this->alertService->saveSessionDanger("Product doesn't exists");
+                return redirect(route('admin.product.index'));
+            }
+            $product->update([
+                'deleted_by' => $auth->id,
+            ]);
+            $product->delete();
+            $this->alertService->saveSessionSuccess('Product saved successfully');
+        } catch (Exception $ex) {
+            $this->alertService->saveSessionDanger('Product saved unsuccessfully');
+            \Log::error($ex->getMessage());
         }
         return redirect(route('admin.product.index'));
     }
@@ -224,7 +246,7 @@ class ProductController extends BaseAdminController
                 $this->alertService->saveSessionDanger("Product doesn't exists");
                 return redirect(route('admin.product.index'));
             }
-    
+
             foreach ($productImages as $key => $productImage) {
                 if ('' == $productImage['id']) {
                     $item                    = new ProductImage();
@@ -235,8 +257,8 @@ class ProductController extends BaseAdminController
                     $item->description_image = $productImage['description_image'];
                     $item->save();
                 } else {
-                    $item = ProductImage::find($productImage['id']);
-                    $avatar = $this->imageService->saveProductImageBase64($productImage['path'], 'details', $id . $key, 'productImage');
+                    $item                    = ProductImage::find($productImage['id']);
+                    $avatar                  = $this->imageService->saveProductImageBase64($productImage['path'], 'details', $id . $key, 'productImage');
                     $item->path              = $avatar[0];
                     $item->path_thumb        = $avatar[1];
                     $item->description_image = $productImage['description_image'];
@@ -245,12 +267,12 @@ class ProductController extends BaseAdminController
             }
             $this->alertService->saveSessionSuccess('Product image saved successfully');
             DB::commit();
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             \Log::error($ex->getMessage());
             $this->alertService->saveSessionSuccess('Product image saved unsuccessfully');
             DB::rollBack();
         }
-        
+
         return redirect(route('admin.product.index'));
     }
 
@@ -264,14 +286,14 @@ class ProductController extends BaseAdminController
             DB::beginTransaction();
             $productImage = ProductImage::find($request->id);
             $productImage->delete();
-            DB::commit(); 
-        } catch(Exception $ex) {
+            DB::commit();
+        } catch (Exception $ex) {
             $status = false;
             \Log::error($ex->getMessage());
             DB::rollBack();
         }
         return response()->json([
-            'success' => $status
+            'success' => $status,
         ]);
     }
 

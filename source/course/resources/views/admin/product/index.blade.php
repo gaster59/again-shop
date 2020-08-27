@@ -20,6 +20,7 @@
             <tr>
                 <th scope="col">Image</th>
                 <th scope="col">Name</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Description</th>
                 <th scope="col"></th>
             </tr>
@@ -33,6 +34,7 @@
                     @endif
                 </td>
                 <td>{{ $product->name }}</td>
+                <td>{{ $product->slug }}</td>
                 <td>{{ $product->description }}</td>
                 <td>
                     <a href="{{ route('admin.product.add.image',['id' => $product->id]) }}" type="button" class="btn btn-primary">Add image</a>
