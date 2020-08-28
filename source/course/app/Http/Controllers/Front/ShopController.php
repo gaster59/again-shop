@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
+use App\Blog;
 use App\ProductImage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap as TagSiteMap;
@@ -20,13 +21,15 @@ class ShopController extends Controller
     private $limitSell;
     private $categories;
     private $product;
+    private $blog;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, Blog $blog)
     {
         $this->paginateFrontEnd = config('paginate.front-end');
         $this->limitSell = 6;
 
         $this->product = $product;
+        $this->blog = $blog;
 
         $category = new Category();
         $this->categories = $category->getCategories();
@@ -92,6 +95,14 @@ class ShopController extends Controller
             'images' => $images,
             'firstImage' => $firstImage,
             'detailCategory' => $detailCategory
+        ]);
+    }
+
+    public function blog(Request $request)
+    {
+        $blogs = $this->blog->getBlogsPaginate(config('paginate.front-end'));
+        return view('front.blog.index', [
+            'blogs' => $blogs,
         ]);
     }
 

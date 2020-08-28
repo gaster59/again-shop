@@ -142,7 +142,7 @@
                             <nav class="header__menu">
                                 <ul>
                                     <li><a href="{{ route('shop.index') }}">Home</a></li>
-                                    <li><a href="./blog.html">Blog</a></li>
+                                    <li><a href="{{ route('shop.blog') }}">Blog</a></li>
                                     <li><a href="./contact.html">Contact</a></li>
                                 </ul>
                             </nav>
@@ -212,12 +212,8 @@
             </section>
             <!-- Hero Section End -->
 
-            @include('front._partials.breadcrumb')
-
-
             @yield('content')
             
-
             @include('front._partials.footer')
 
             <!-- Js Plugins -->

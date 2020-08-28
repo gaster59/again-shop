@@ -22,6 +22,8 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/category/{id}-{name}'.$suffix, "ShopController@category")->name('shop.category.id');
     Route::get('/product/{id}-{name}'.$suffix, "ShopController@product")->name('shop.product.id');
     Route::get('/search'.$suffix, "ShopController@search")->name('shop.search');
+    Route::get('/blog'.$suffix, "ShopController@blog")->name('shop.blog');
+    Route::get('/blog/{id}-{name}'.$suffix, "ShopController@blog")->name('shop.blog.detail');
     Route::get('/sitemap'.$suffix, "ShopController@siteMap")->name('shop.sitemap');
 });
 
