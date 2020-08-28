@@ -143,7 +143,7 @@
                                 <ul>
                                     <li><a href="{{ route('shop.index') }}">Home</a></li>
                                     <li><a href="{{ route('shop.blog') }}">Blog</a></li>
-                                    <li><a href="./contact.html">Contact</a></li>
+                                    <li><a href="{{ route('shop.contact') }}">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -224,12 +224,23 @@
             <script src="{{ asset('front/js/jquery.slicknav.js') }}"></script>
             <script src="{{ asset('front/js/mixitup.min.js') }}"></script>
             <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
+            <script src="{{ URL::asset('admin/js/bootstrap-notify.min.js') }}"></script>
             <script>
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+
+                @if(session('alertType') && session('alertMessage'))
+                $.notify({
+                    // options
+                    message: "{{ session('alertMessage') }}" 
+                },{
+                    // settings
+                    type: "{{ session('alertType') }}"
+                });
+                @endif
             </script>
             <script src="{{ asset('front/js/main.js') }}"></script>
             @section('js')

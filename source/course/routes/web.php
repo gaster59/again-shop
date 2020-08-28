@@ -24,6 +24,8 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/search'.$suffix, "ShopController@search")->name('shop.search');
     Route::get('/blog'.$suffix, "ShopController@blog")->name('shop.blog');
     Route::get('/blog/{id}-{name}'.$suffix, "ShopController@blog")->name('shop.blog.detail');
+    Route::get('/contact'.$suffix, "ShopController@contact")->name('shop.contact');
+    Route::post('/contact'.$suffix, "ShopController@storeContact")->name('admin.contact.storeContact');
     Route::get('/sitemap'.$suffix, "ShopController@siteMap")->name('shop.sitemap');
 });
 
@@ -60,6 +62,11 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], funct
         Route::get('blog/edit/{id}', "BlogController@edit")->name('admin.blog.edit');
         Route::post('blog/edit/{id}', "BlogController@update")->name('admin.blog.doEdit');
         Route::get('blog/delete/{id}', "BlogController@delete")->name('admin.blog.delete');
+
+        Route::get('contact', "ContactController@index")->name('admin.contact.index');
+        Route::get('contact/{id}/response', "ContactController@response")->name('admin.contact.response');
+        Route::post('contact/{id}/response', "ContactController@responseMessage")->name('admin.contact.response.message');
+        Route::get('contact/delete/{id}', "ContactController@delete")->name('admin.contact.delete');
 
         Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
     });

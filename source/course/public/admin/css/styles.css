@@ -239,6 +239,11 @@ fieldset[disabled] .btn-danger.active {
 
 /*Backgrounds*/
 
+.bg-response {
+	color: #1b3548;
+	background-color: #428bca;
+}
+
 .bg-primary {
 	color: #1b3548;
 	background-color: #e9ecf2;

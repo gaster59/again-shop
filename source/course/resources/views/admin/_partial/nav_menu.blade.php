@@ -33,4 +33,5 @@
     <li><a href="{{ route('admin.category.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Category</a></li>
     <li><a href="{{ route('admin.product.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Product</a></li>
     <li><a href="{{ route('admin.blog.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Blog</a></li>
+    <li><a href="{{ route('admin.contact.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Contacts</a></li>
 </ul>

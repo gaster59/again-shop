@@ -204,9 +204,9 @@ class ProductController extends BaseAdminController
                 'deleted_by' => $auth->id,
             ]);
             $product->delete();
-            $this->alertService->saveSessionSuccess('Product saved successfully');
+            $this->alertService->saveSessionSuccess('Product deleted successfully');
         } catch (Exception $ex) {
-            $this->alertService->saveSessionDanger('Product saved unsuccessfully');
+            $this->alertService->saveSessionDanger('Product deleted unsuccessfully');
             \Log::error($ex->getMessage());
         }
         return redirect(route('admin.product.index'));
