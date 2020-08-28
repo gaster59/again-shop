@@ -32,4 +32,5 @@
     <!-- <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li> -->
     <li><a href="{{ route('admin.category.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Category</a></li>
     <li><a href="{{ route('admin.product.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Product</a></li>
+    <li><a href="{{ route('admin.blog.index') }}"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Blog</a></li>
 </ul>

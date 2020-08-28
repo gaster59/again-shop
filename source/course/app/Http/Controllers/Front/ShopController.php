@@ -48,12 +48,16 @@ class ShopController extends Controller
     public function category($id, $name, Request $request)
     {
         $product = new Product();
-        $products = $product->getProductsByCategoryPaginate($id, $this->paginateFrontEnd);        
+        $products = $product->getProductsByCategoryPaginate($id, $this->paginateFrontEnd);
         $productSell = $product->getProductsSell($this->limitSell);
+        
+        $collections = collect($this->categories->toArray());
+        $detailCategory = $collections->where('id', $id)->first();
         return view('front.category.index', [
             'products' => $products,
             'productSell' => $productSell,
-            'categories' => $this->categories
+            'categories' => $this->categories,
+            'detailCategory' => $detailCategory
         ]);
     }
 
@@ -61,6 +65,9 @@ class ShopController extends Controller
     {
         $product = new Product();
         $product = $product->getDetailProduct($id);
+        
+        $collections = collect($this->categories->toArray());
+        $detailCategory = $collections->where('id', $product->category_id)->first();
 
         $productImage = new ProductImage();
         $productImages = $productImage->getImageByProduct($id);
@@ -79,13 +86,12 @@ class ShopController extends Controller
                 $item->path_thumb.'thumb1/img.jpg'
             ];
         }
-        // dd($images,1, $productImages, count($images));
-        
 
         return view('front.product.index', [
             'product' => $product,
             'images' => $images,
-            'firstImage' => $firstImage
+            'firstImage' => $firstImage,
+            'detailCategory' => $detailCategory
         ]);
     }
 

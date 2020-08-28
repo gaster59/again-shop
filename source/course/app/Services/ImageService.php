@@ -61,6 +61,17 @@ class ImageService
                         \Image::make($pathImage)->resize($size[0],$size[1])->save(public_path($pathThumb . '/' . $fileName));
                     }
                     break;
+                case 'blog':
+                    $arrayThumbnail = config('thumbnail.blog');
+                    foreach ($arrayThumbnail as $thumbnail => $size) {
+                        $pathThumb = $folder . "/$thumbnail";
+                        $checkDirectory = $storage->exists($pathThumb);
+                        if (!$checkDirectory) {
+                            $storage->makeDirectory($pathThumb);
+                        }
+                        \Image::make($pathImage)->resize($size[0],$size[1])->save(public_path($pathThumb . '/' . $fileName));
+                    }
+                    break;
             }
     
             return [

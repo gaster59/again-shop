@@ -81,7 +81,7 @@ class Product extends Model
      */
     public function getProductsByCategoryPaginate($categoryId, $limit)
     {
-        $result = $this->join('product_categories', 'products.id', '=', 'product_categories.product_id')
+        $result = $this->select('products.*')->join('product_categories', 'products.id', '=', 'product_categories.product_id')
             ->where('category_id', $categoryId)->paginate($limit);
         return $result;
     }
@@ -93,7 +93,9 @@ class Product extends Model
      */
     public function getDetailProduct($id)
     {
-        $result = $this->where('id', $id)->first();
+        $result = $this->select('products.*', 'product_categories.category_id')
+            ->join('product_categories', 'products.id', '=', 'product_categories.product_id')
+            ->where('products.id', $id)->first();
         return $result;
     }
 }

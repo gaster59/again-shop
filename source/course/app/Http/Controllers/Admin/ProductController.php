@@ -83,12 +83,13 @@ class ProductController extends BaseAdminController
             ]);
             $productId                   = $productInserted->id;
             $productInserted->sort_order = $productInserted->id;
+            $productInserted->save();
 
             // upload product avatar
             if (!empty($request->hdn_avatar)) {
                 $avatar                        = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'avatar', $productId);
-                $productInserted->avatar       = $avatar[0];
-                $productInserted->avatar_thumb = $avatar[1];
+                $productInserted->avatar       = $avatar[0] ?? '';
+                $productInserted->avatar_thumb = $avatar[1] ?? '';
                 $productInserted->save();
             }
 
@@ -185,6 +186,11 @@ class ProductController extends BaseAdminController
         return redirect(route('admin.product.index'));
     }
 
+    /**
+     * @method delete
+     * @param Integer $id
+     * @return Redirect
+     */
     public function delete($id)
     {
         try {

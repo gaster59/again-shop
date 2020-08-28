@@ -40,6 +40,9 @@
                 <label for="name" class="col-sm-2 col-form-label">Slug</label>
                 <div class="col-sm-10">
                     <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" value="{{ old('slug', $product->slug) }}">
+                    @if($errors->has('slug'))
+                        <div class="error text-danger">{{ $errors->first('slug') }}</div>
+                    @endif
                 </div>
             </div>
             <div class="form-group row">

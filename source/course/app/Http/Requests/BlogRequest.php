@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BlogCreateRequest extends FormRequest
+class BlogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class BlogCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class BlogCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'avatar'           => 'image',
+            'name'             => 'required|max:70',
+            'slug'             => 'required|max:150',
+            'description'      => 'max:200',
+            'meta_tags'        => 'max:200',
+            'meta_description' => 'max:200',
         ];
     }
 }
