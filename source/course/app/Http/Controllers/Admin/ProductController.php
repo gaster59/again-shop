@@ -275,10 +275,9 @@ class ProductController extends BaseAdminController
             DB::commit();
         } catch (Exception $ex) {
             \Log::error($ex->getMessage());
-            $this->alertService->saveSessionSuccess('Product image saved unsuccessfully');
+            $this->alertService->saveSessionDanger('Product image saved unsuccessfully');
             DB::rollBack();
         }
-
         return redirect(route('admin.product.index'));
     }
 

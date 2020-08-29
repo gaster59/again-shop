@@ -5,7 +5,7 @@
 <div class="row">
     <ol class="breadcrumb">
         <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-        <li><a href="{{ route('admin.product.index') }}">Contact</a></li>
+        <li><a href="{{ route('admin.contact.index') }}">Contact</a></li>
         <li class="active">Response</li>
     </ol>
 </div><!--/.row-->

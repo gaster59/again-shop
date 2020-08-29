@@ -68,6 +68,9 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], funct
         Route::post('contact/{id}/response', "ContactController@responseMessage")->name('admin.contact.response.message');
         Route::get('contact/delete/{id}', "ContactController@delete")->name('admin.contact.delete');
 
+        Route::get('profile', "ProfileController@index")->name('admin.profile.index');
+        Route::post('profile', "ProfileController@renewPassword")->name('admin.profile.renewpassword');
+
         Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
     });
 });
