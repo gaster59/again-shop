@@ -76,11 +76,8 @@
                 </div>
             </div>
         </div>
-        <form action="{{ route('admin.contact.storeContact') }}" method="post">
+        <form action="{{ route('shop.contact.storeContact') }}" method="post">
             @csrf
-            @php
-            //dd($errors);
-            @endphp
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <input type="text" name="name" placeholder="Your name" value="{{ old('name', '') }}">

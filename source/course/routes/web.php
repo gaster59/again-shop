@@ -25,8 +25,10 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/blog'.$suffix, "ShopController@blog")->name('shop.blog');
     Route::get('/blog/{id}-{name}'.$suffix, "ShopController@blog")->name('shop.blog.detail');
     Route::get('/contact'.$suffix, "ShopController@contact")->name('shop.contact');
-    Route::post('/contact'.$suffix, "ShopController@storeContact")->name('admin.contact.storeContact');
-    Route::get('/sitemap'.$suffix, "ShopController@siteMap")->name('shop.sitemap');
+    Route::post('/contact'.$suffix, "ShopController@storeContact")->name('shop.contact.storeContact');
+    Route::get('/sitemap'.$suffix, "SitemapController@siteMap")->name('shop.sitemap');
+    Route::post('/cart'.$suffix, "CartController@addToCart")->name('shop.cart.addToCart');
+    Route::get('/view_cart'.$suffix, "CartController@viewCart")->name('shop.cart.viewCart');
 });
 
 Route::get('admin/login', "Admin\LoginController@index")->name('admin.login.index');

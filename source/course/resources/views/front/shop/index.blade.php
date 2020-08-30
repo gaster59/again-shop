@@ -151,16 +151,13 @@
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="{{ $product->avatar_thumb.'thumb1/img.jpg' }}">
                                 <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="javascript:void(0)" class="addToCart" data-id="{{ $product->id }}"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                @php
-                                $link = route('shop.product.id', [ "id" => $product->id, "name" => $product->slug ]);
-                                @endphp
-                                <h6><a href="{{ $link }}">{{ $product->name }}</a></h6>
+                                <h6><a href="{{ route('shop.product.id', [ 'id' => $product->id, 'name' => $product->slug ]) }}">{{ $product->name }}</a></h6>
                                 <h5>{{ number_format($product->price) }}</h5>
                             </div>
                         </div>

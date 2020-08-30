@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2020 at 07:37 PM
+-- Generation Time: Aug 30, 2020 at 06:51 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -83,6 +83,33 @@ INSERT INTO `categories` (`id`, `name`, `description`, `parent_id`, `meta_tags`,
 (11, 'Papayaya & Crisps', 'Papayaya & Crisps', NULL, 'Papayaya & Crisps', 'Papayaya & Crisps', '2020-08-15 23:42:10', 1, '2020-08-15 23:42:10', NULL, NULL, NULL),
 (12, 'Oatmeal', 'Oatmeal', NULL, 'Oatmeal', 'Oatmeal', '2020-08-15 23:42:20', 1, '2020-08-15 23:42:20', NULL, NULL, NULL),
 (13, 'Fresh Bananas', 'Fresh Bananas', NULL, 'Fresh Bananas', 'Fresh Bananas', '2020-08-15 23:42:30', 1, '2020-08-15 23:42:30', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` int(11) NOT NULL,
+  `name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `response` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `name`, `email`, `message`, `response`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`, `status`) VALUES
+(1, 'qwe', 'aa@aa.com', 'qweqwe', '11111', '2020-08-28 10:56:50', '2020-08-28 11:57:10', 1, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -619,7 +646,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `token`, `role`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Tuan Anh', 'trantuananh198610@gmail.com', NULL, '$2y$10$0nGC13yrWS2Tz.XCHs7bauDz.824ctlNg.qHZMZXFHuYAn9IdxtjC', '', 1, '4XOioTBoXXIr594GDADTzhmszn0ZCNeagNJaygJhkwjVZFnj9oacRYd69QBq', '2020-08-09 06:56:34', '2020-08-09 06:56:34', NULL);
+(1, 'Tuan Anh', 'trantuananh198610@gmail.com', NULL, '$2y$10$h0iViS71Nn/LazgYFQMkUeeDc.lzQUOAvLoEHMhpRUSSfvNhD0DXG', '', 1, 'QIAwN053MGR4yJmS9aVsdTsto2OCWIwneA1KEQKyD1z9ByF9KxfEwt7CLEIG', '2020-08-09 06:56:34', '2020-08-29 02:23:14', NULL);
 
 --
 -- Indexes for dumped tables
@@ -635,6 +662,12 @@ ALTER TABLE `blogs`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contacts`
+--
+ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -719,6 +752,12 @@ ALTER TABLE `blogs`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `countries`
