@@ -27,6 +27,10 @@
     </head>
     <body>
         @inject('categoryService', 'App\Services\CategoryService')
+        @inject('cartService', 'App\Services\CartService')
+        @php
+        $infoCart = $cartService->getInfoCart();
+        @endphp
         <!-- Page Preloder -->
         <div id="preloder">
             <div class="loader"></div>
@@ -42,9 +46,9 @@
             <div class="humberger__menu__cart">
                 <ul>
                     <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span class="total-cart">{{ $infoCart[0] }}</span></a></li>
                 </ul>
-                <div class="header__cart__price">item: <span>$150.00</span></div>
+                <div class="header__cart__price">item: <span>{{ number_format($infoCart[1]) }}</span></div>
             </div>
             <div class="humberger__menu__widget">
                 <div class="header__top__right__language">
@@ -152,9 +156,9 @@
                             <div class="header__cart">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span class="total-cart">{{ $infoCart[0] }}</span></a></li>
                                 </ul>
-                                <div class="header__cart__price">item: <span>$150.00</span></div>
+                                <div class="header__cart__price">item: <span>{{ number_format($infoCart[1]) }}</span></div>
                             </div>
                         </div>
                     </div>

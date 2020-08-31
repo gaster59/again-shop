@@ -221,6 +221,20 @@
 
 function addToCart(product, quantity) {
     $.post(urlCart, {'id': product, 'quantity': quantity}, function(response){
-        // alert(response.success);
+        if(response.success == 1) {
+            $('.humberger__menu__cart .total-cart').text(response.total);
+            $.notify({
+                // options
+                message: response.message 
+            },{
+                // settings
+                type: "success"
+            });
+            $('.header__cart .total-cart').text(response.total);
+            $('.header__cart .header__cart__price span').text(response.money);
+
+            $('.humberger__menu__cart .total-cart').text(response.total);
+            $('.humberger__menu__cart .header__cart__price span').text(response.money);
+        }
     })
 }
