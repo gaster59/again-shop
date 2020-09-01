@@ -215,18 +215,28 @@
     $('.addToCart').click(function (e) {
         var id = $(this).attr('data-id');
         addToCart(id, 1);
-    })
+    });
+
+    $('.btn-add-to-cart').click(function (e) {
+        var id = $(this).attr('data-id');
+        var quantity = $('.product__details__quantity .pro-qty input').val();
+        addToCart(id, quantity);
+    });
+
+    $('#btnSubmitCart').click(function (e) {
+        $('#frmSubmitCart').submit();
+    });
 
 })(jQuery);
 
 function addToCart(product, quantity) {
-    $.post(urlCart, {'id': product, 'quantity': quantity}, function(response){
-        if(response.success == 1) {
+    $.post(urlCart, { 'id': product, 'quantity': quantity }, function (response) {
+        if (response.success == 1) {
             $('.humberger__menu__cart .total-cart').text(response.total);
             $.notify({
                 // options
-                message: response.message 
-            },{
+                message: response.message
+            }, {
                 // settings
                 type: "success"
             });

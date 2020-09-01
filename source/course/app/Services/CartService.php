@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class CartService {
 
+    /**
+     * @method getInfoCart
+     * @return Array
+     */
     public function getInfoCart()
     {
         $cart = Request()->session()->get(SESSION_CART, []);
@@ -17,6 +21,19 @@ class CartService {
             count($cart),
             $total
         ];
+    }
+
+    /**
+     * @method getSubTotal
+     * @return Integer
+     */
+    public function getSubTotal($price, $quality)
+    {
+        try {
+            return (int)$price * (int)$quality;
+        } catch(Exception $ex) {
+            return 0;
+        }
     }
 
 }

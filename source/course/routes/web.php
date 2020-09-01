@@ -27,7 +27,9 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/contact'.$suffix, "ShopController@contact")->name('shop.contact');
     Route::post('/contact'.$suffix, "ShopController@storeContact")->name('shop.contact.storeContact');
     Route::get('/sitemap'.$suffix, "SitemapController@siteMap")->name('shop.sitemap');
-    Route::post('/cart'.$suffix, "CartController@addToCart")->name('shop.cart.addToCart');
+    Route::get('/cart'.$suffix, "CartController@index")->name('shop.cart.index');
+    Route::post('/addToCart'.$suffix, "CartController@addToCart")->name('shop.cart.addToCart');
+    Route::post('/updateToCart'.$suffix, "CartController@updateToCart")->name('shop.cart.updateToCart');
     Route::get('/view_cart'.$suffix, "CartController@viewCart")->name('shop.cart.viewCart');
 });
 

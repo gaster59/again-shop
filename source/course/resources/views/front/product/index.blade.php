@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:void(0)" class="primary-btn">ADD TO CARD</a>
+                    <a href="javascript:void(0)" class="primary-btn btn-add-to-cart" data-id="{{ $product->id }}">ADD TO CARD</a>
                     <a href="javascript:void(0)" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>Share on</b>
