@@ -30,11 +30,23 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Cart Total</h5>
+                    <ul>
+                        <li>Total <span>0</span></li>
+                    </ul>
+                    <a href="{{ route('shop.index') }}" class="primary-btn">Go to index</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 @else
-@inject('cartService', 'App\Services\CartService')
 <section class="shoping-cart spad">
     <div class="container">
         <div class="row">
@@ -67,9 +79,9 @@
                             @foreach($cart as $key => $item)
                             
                             @php
-                            $total += $cartService->getSubTotal($item[0],$item[1]);
+                            $total += (int)$item[0] * (int)$item[1];
                             @endphp
-                            <tr>
+                            <tr id="tr{{ $key }}">
                                 <td class="shoping__cart__item">
                                     <img src="{{ $item[2]->avatar_thumb.'thumb3/img.jpg' }}" alt="{{ $item[2]->name }}" />
                                     <h5>{{ $item[2]->name }}</h5>
@@ -88,10 +100,10 @@
                                     </div>
                                 </td>
                                 <td class="shoping__cart__total">
-                                    {{ number_format( $cartService->getSubTotal($item[0],$item[1]) ) }}
+                                    {{ number_format( (int)$item[0]  * (int)$item[1] ) }}
                                 </td>
                                 <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
+                                    <span class="icon_close" data-id="{{ $key }}"></span>
                                 </td>
                             </tr>
                             @endforeach
@@ -128,7 +140,7 @@
                     <ul>
                         <li>Total <span>{{ number_format($total) }}</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <a href="{{ route('shop.checkout.index') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>

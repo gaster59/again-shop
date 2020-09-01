@@ -227,6 +227,11 @@
         $('#frmSubmitCart').submit();
     });
 
+    $('.icon_close').click(function(e){
+        var index = $(this).attr('data-id');
+        $('#tr'+index).remove();
+    })
+
 })(jQuery);
 
 function addToCart(product, quantity) {

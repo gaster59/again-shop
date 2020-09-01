@@ -4,7 +4,8 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 
-class CartService {
+class CartService
+{
 
     /**
      * @method getInfoCart
@@ -12,28 +13,14 @@ class CartService {
      */
     public function getInfoCart()
     {
-        $cart = Request()->session()->get(SESSION_CART, []);
+        $cart  = Request()->session()->get(SESSION_CART, []);
         $total = 0;
         foreach ($cart as $productId => $item) {
             $total += ($item[0] * $item[1]);
         }
         return [
             count($cart),
-            $total
+            $total,
         ];
     }
-
-    /**
-     * @method getSubTotal
-     * @return Integer
-     */
-    public function getSubTotal($price, $quality)
-    {
-        try {
-            return (int)$price * (int)$quality;
-        } catch(Exception $ex) {
-            return 0;
-        }
-    }
-
 }

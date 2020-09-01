@@ -31,6 +31,9 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/addToCart'.$suffix, "CartController@addToCart")->name('shop.cart.addToCart');
     Route::post('/updateToCart'.$suffix, "CartController@updateToCart")->name('shop.cart.updateToCart');
     Route::get('/view_cart'.$suffix, "CartController@viewCart")->name('shop.cart.viewCart');
+
+    Route::get('/checkout'.$suffix, "CheckoutController@index")->name('shop.checkout.index');
+    Route::post('/checkout'.$suffix, "CheckoutController@store")->name('shop.checkout.store');
 });
 
 Route::get('admin/login', "Admin\LoginController@index")->name('admin.login.index');

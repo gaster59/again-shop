@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('front/css/elegant-icons.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/nice-select.css') }}" type="text/css">
+        <!-- <link rel="stylesheet" href="{{ asset('front/css/nice-select.css') }}" type="text/css"> -->
         <link rel="stylesheet" href="{{ asset('front/css/jquery-ui.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
@@ -45,8 +45,8 @@
             </div>
             <div class="humberger__menu__cart">
                 <ul>
-                    <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span class="total-cart">{{ $infoCart[0] }}</span></a></li>
+                    <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+                    <li><a href="{{ route('shop.cart.viewCart') }}"><i class="fa fa-shopping-bag"></i> <span class="total-cart">{{ $infoCart[0] }}</span></a></li>
                 </ul>
                 <div class="header__cart__price">item: <span>{{ number_format($infoCart[1]) }}</span></div>
             </div>
@@ -155,8 +155,8 @@
                         <div class="col-lg-3">
                             <div class="header__cart">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span class="total-cart">{{ $infoCart[0] }}</span></a></li>
+                                    <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+                                    <li><a href="{{ route('shop.cart.index') }}"><i class="fa fa-shopping-bag"></i> <span class="total-cart">{{ $infoCart[0] }}</span></a></li>
                                 </ul>
                                 <div class="header__cart__price">item: <span>{{ number_format($infoCart[1]) }}</span></div>
                             </div>
@@ -224,7 +224,7 @@
             <!-- Js Plugins -->
             <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
             <script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('front/js/jquery.nice-select.min.js') }}"></script>
+            <!-- <script src="{{ asset('front/js/jquery.nice-select.min.js') }}"></script> -->
             <script src="{{ asset('front/js/jquery-ui.min.js') }}"></script>
             <script src="{{ asset('front/js/jquery.slicknav.js') }}"></script>
             <script src="{{ asset('front/js/mixitup.min.js') }}"></script>
