@@ -12,14 +12,14 @@ class OrderDetail extends Model
      *
      * @var string
      */
-    protected $_table = 'order_details';
+    protected $table = 'order_details';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $_fillable = [
+    protected $fillable = [
         'order_id',
         'product_id',
         'product_name',
@@ -34,6 +34,6 @@ class OrderDetail extends Model
      *
      * @var array
      */
-    protected $_guarded = [];
+    protected $guarded = [];
 
 }

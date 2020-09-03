@@ -21,7 +21,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $_fillable = [
+    protected $fillable = [
         'memo',
         'total',
         'customer_id',
@@ -39,6 +39,7 @@ class Order extends Model
         'updated_by',
         'deleted_by',
     ];
+
 
     /**
      * The attributes that aren't mass assignable.
