@@ -1,5 +1,7 @@
 @extends('layout.front')
 
+@section('title', 'Detail product')
+
 @section('content')
 
 <!-- Breadcrumb Section Begin -->

@@ -28,6 +28,7 @@ class Blog extends Model
         'summary',
         'avatar',
         'avatar_thumb',
+        'sort_order',
         'meta_tags',
         'meta_description',
         'created_by',

@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/product/{id}-{name}'.$suffix, "ShopController@product")->name('shop.product.id');
     Route::get('/search'.$suffix, "ShopController@search")->name('shop.search');
     Route::get('/blog'.$suffix, "ShopController@blog")->name('shop.blog');
-    Route::get('/blog/{id}-{name}'.$suffix, "ShopController@blog")->name('shop.blog.detail');
+    Route::get('/blog/{id}-{name}'.$suffix, "ShopController@detailBlog")->name('shop.blog.detail');
     Route::get('/contact'.$suffix, "ShopController@contact")->name('shop.contact');
     Route::post('/contact'.$suffix, "ShopController@storeContact")->name('shop.contact.storeContact');
     Route::get('/sitemap'.$suffix, "SitemapController@siteMap")->name('shop.sitemap');
@@ -77,6 +77,10 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], funct
 
         Route::get('profile', "ProfileController@index")->name('admin.profile.index');
         Route::post('profile', "ProfileController@renewPassword")->name('admin.profile.renewpassword');
+
+        Route::get('order', "OrderController@index")->name('admin.order.index');
+        Route::get('order/detail/{id}', "OrderController@detail")->name('admin.order.detail');
+        Route::get('order/delete/{id}', "OrderController@delete")->name('admin.order.delete');
 
         Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
     });

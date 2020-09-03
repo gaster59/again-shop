@@ -2560,7 +2560,7 @@ ol {
 
 .blog__details__author__text {
 	overflow: hidden;
-	padding-top: 30px;
+	/* padding-top: 30px; */
 }
 
 .blog__details__author__text h6 {

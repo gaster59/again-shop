@@ -1,6 +1,6 @@
 @extends('layout.front')
 
-@section('title', 'Blogs')
+@section('title', 'Detail blog')
 
 @section('content')
 
@@ -22,12 +22,12 @@
 </section>
 <!-- Breadcrumb Section End -->
 
-
-<section class="blog spad">
+<section class="blog-details spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-5">
+            <div class="col-lg-4 col-md-5 order-md-1 order-2">
                 <div class="blog__sidebar">
+                    
                     <div class="blog__sidebar__item">
                         <h4>Recent News</h4>
                         <div class="blog__sidebar__recent">
@@ -60,44 +60,36 @@
                             </a>
                         </div>
                     </div>
+                    
                 </div>
             </div>
-            <div class="col-lg-8 col-md-7">
-                <div class="row">
-                    @if(count($blogs) == 0)
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        No Blog
-                    </div>                   
-                    @else
-
-                    @foreach($blogs as $blog)
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                @if($blog->avatar_thumb == '')
-                                    <img src="{{ asset('blog/no-image.jpg') }}" alt="">
-                                @else
-                                    <img src="{{ $blog->avatar_thumb.'thumb1/img.jpg' }}" alt="">
-                                @endif
+            <div class="col-lg-8 col-md-7 order-md-1 order-1">
+                <div class="blog__details__text">
+                    {!! $blog->summary !!}
+                </div>
+                <div class="blog__details__content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="blog__details__author">
+                                <div class="blog__details__author__text">
+                                    <h6>Michael Scofield</h6>
+                                    <span>Admin</span>
+                                </div>
                             </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <!-- <li><i class="fa fa-comment-o"></i> 5</li> -->
-                                </ul>
-                                <h5><a href="{{ route('shop.blog.detail', ['id' => $blog->id, 'name' => $blog->slug]) }}">{{ $blog->name }}</a></h5>
-                                <p>{{ $blog->description }}</p>
-                                <a href="{{ route('shop.blog.detail', ['id' => $blog->id, 'name' => $blog->slug]) }}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="blog__details__widget">
+                                
+                                <div class="blog__details__social">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa fa-envelope"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                    <div class="col-lg-12">
-                        {!! $blogs->links() !!}
-                    </div>
-                    @endif
-                    
-                    
                 </div>
             </div>
         </div>

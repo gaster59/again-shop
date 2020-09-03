@@ -13,7 +13,9 @@
     <div class="col-lg-12">
         <h1 class="page-header">Blog</h1>
 
-        <a href="{{ route('admin.blog.add') }}" type="button" class="btn btn-primary">Add</a>
+        <div class="col-12" style="margin-bottom: 10px;">
+            <a href="{{ route('admin.blog.add') }}" type="button" class="btn btn-primary">Add</a>
+        </div>
 
         <table class="table table-hover">
         <thead>

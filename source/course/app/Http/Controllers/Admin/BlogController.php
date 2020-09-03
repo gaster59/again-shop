@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Blog;
 use App\Http\Requests\BlogRequest;
-use DB;
 use App\Services\AlertService;
 use App\Services\ImageService;
+use DB;
 
 class BlogController extends BaseAdminController
 {
@@ -17,10 +17,10 @@ class BlogController extends BaseAdminController
 
     public function __construct(Blog $blog, ImageService $imageService, AlertService $alertService)
     {
-        $this->blog   = $blog;
+        $this->blog         = $blog;
         $this->alertService = $alertService;
         $this->imageService = $imageService;
-        $this->paging = config('paginate.back-end');
+        $this->paging       = config('paginate.back-end');
     }
 
     /**
@@ -53,7 +53,7 @@ class BlogController extends BaseAdminController
     {
         try {
             DB::beginTransaction();
-            $auth            = \Auth::guard('admin')->user();
+            $auth         = \Auth::guard('admin')->user();
             $blogInserted = $this->blog->create([
                 'name'             => $request->name,
                 'slug'             => $request->slug ?? '',
@@ -61,6 +61,7 @@ class BlogController extends BaseAdminController
                 'summary'          => $request->summary,
                 'avatar'           => '',
                 'avatar_thumb'     => '',
+                'sort_order'       => 0,
                 'meta_tags'        => $request->meta_tags,
                 'meta_description' => $request->meta_description,
                 'created_by'       => $auth->id,
@@ -71,7 +72,7 @@ class BlogController extends BaseAdminController
 
             // upload product avatar
             if (!empty($request->hdn_avatar)) {
-                $avatar                        = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'blog', $blogId, 'blog');
+                $avatar                     = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'blog', $blogId, 'blog');
                 $blogInserted->avatar       = $avatar[0] ?? '';
                 $blogInserted->avatar_thumb = $avatar[1] ?? '';
                 $blogInserted->save();
@@ -79,7 +80,7 @@ class BlogController extends BaseAdminController
 
             DB::commit();
             $this->alertService->saveSessionSuccess('Blog saved successfully');
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             $this->alertService->saveSessionDanger('Blog saved unsuccessfully');
             \Log::error($ex->getMessage());
             DB::rollBack();
@@ -106,8 +107,8 @@ class BlogController extends BaseAdminController
         }
 
         return view('admin.blog.edit', [
-            'blog'           => $blog,
-            'avatar'            => $avatar,
+            'blog'   => $blog,
+            'avatar' => $avatar,
         ]);
     }
 
@@ -162,7 +163,7 @@ class BlogController extends BaseAdminController
     public function delete($id)
     {
         try {
-            $auth    = \Auth::guard('admin')->user();
+            $auth = \Auth::guard('admin')->user();
             $blog = $this->blog->getDetailBlog($id);
             if (null == $blog) {
                 $this->alertService->saveSessionDanger("Blog doesn't exists");
@@ -179,5 +180,5 @@ class BlogController extends BaseAdminController
         }
         return redirect(route('admin.blog.index'));
     }
-    
+
 }

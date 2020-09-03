@@ -37,11 +37,13 @@ class ProductController extends BaseAdminController
      * @method index
      * @return view
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->product->getProductsPaginate($this->paging);
+        $q = $request->query('q', '');
+        $products = $this->product->getProductsPaginate($this->paging, $q);
         return view('admin.product.index', [
             'products' => $products,
+            'q' => $q
         ]);
     }
 

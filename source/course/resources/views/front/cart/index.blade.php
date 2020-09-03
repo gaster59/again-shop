@@ -1,5 +1,7 @@
 @extends('layout.front')
 
+@section('title', 'Cart')
+
 @section('content')
 
 <section class="breadcrumb-section set-bg" data-setbg="{{ asset('front/img/breadcrumb.jpg') }}">
