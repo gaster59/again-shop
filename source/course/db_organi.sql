@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2020 at 06:51 PM
+-- Generation Time: Sep 03, 2020 at 08:03 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -41,10 +41,17 @@ CREATE TABLE `blogs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` int(11) NOT NULL
+  `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `name`, `slug`, `description`, `summary`, `avatar`, `avatar_thumb`, `sort_order`, `meta_tags`, `meta_description`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 'blog 1', 'blog-1', 'blog 1', '<p>blog 1</p>', 'http://test.organi.com/blog/1/img.jpg', 'http://test.organi.com/blog/1/', 1, 'blog 1', 'blog 1', '2020-09-03 09:03:18', 1, '2020-09-03 09:03:19', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -467,30 +474,38 @@ CREATE TABLE `orders` (
   `customer_id` int(11) NOT NULL,
   `customer_first_name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
   `customer_last_name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country_id` int(11) NOT NULL,
+  `country_id` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ship_address` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postal_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` int(11) NOT NULL,
+  `city` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL COMMENT '0: moi, 1: dang xu ly, 2: hoan thanh',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` int(11) NOT NULL
+  `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `memo`, `total`, `customer_id`, `customer_first_name`, `customer_last_name`, `country_id`, `ip`, `address`, `ship_address`, `postal_code`, `city`, `phone`, `email`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(2, 'rtrt', 10000, 0, 'tuan', 'anh', 'VN', '127.0.0.1', 'home', 'home', '70000', 'hcm', '123123123', 'trantuananh198610@yahoo.com', 0, '2020-09-03 07:38:57', NULL, '2020-09-03 07:38:57', NULL, NULL, NULL),
+(6, 'opopo', 31500, 0, 'tuan', 'anh', 'VN', '127.0.0.1', 'home', 'home', '70000', 'hcm', '123123123', 'trantuananh198610@yahoo.com', 0, '2020-09-03 07:57:30', NULL, '2020-09-03 08:23:32', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_detail`
+-- Table structure for table `order_details`
 --
 
-CREATE TABLE `order_detail` (
+CREATE TABLE `order_details` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -500,6 +515,14 @@ CREATE TABLE `order_detail` (
   `quantity` int(11) NOT NULL,
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_name`, `price`, `price_down`, `quantity`, `total`) VALUES
+(1, 2, 2, 'celery organic', 5000, 0, 2, 10000),
+(5, 6, 3, 'Chilli red organic', 31500, 0, 1, 31500);
 
 -- --------------------------------------------------------
 
@@ -534,7 +557,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `slug`, `description`, `summary`, `avatar`, `avatar_thumb`, `meta_tags`, `meta_description`, `price`, `price_down`, `sort_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
 (1, 'cucamelon', 'cucamelon', 'cucamelon', '<p>cucamelon</p>', 'http://test.organi.com/avatar/1/img.jpg', 'http://test.organi.com/avatar/1/', 'cucamelon', 'cucamelon', 20000, 0, 1, '2020-08-23 03:09:07', 1, '2020-08-27 10:28:04', 1, NULL, NULL),
-(2, 'celery organic', 'celery-organic', 'celery organic', '<p>celery organic</p>', 'http://test.organi.com/avatar/2/img.jpg', 'http://test.organi.com/avatar/2/', 'celery organic', 'celery organic', 5000, 0, 2, '2020-08-23 03:14:34', 1, '2020-08-26 07:15:56', NULL, NULL, NULL),
+(2, 'celery organic', 'celery-organic', 'celery organic', '<p>celery organic</p>', 'http://test.organi.com/avatar/2/img.jpg', 'http://test.organi.com/avatar/2/', 'celery organic', 'celery organic', 5000, 0, 2, '2020-08-23 03:14:34', 1, '2020-09-03 08:21:21', NULL, '2020-09-03 08:21:21', 1),
 (3, 'Chilli red organic', 'chilli-red-organic', 'Chilli red organic', '<p>Chilli red organic</p>', 'http://test.organi.com/avatar/3/img.jpg', 'http://test.organi.com/avatar/3/', 'Chilli red organic', 'Chilli red organic', 31500, 0, 3, '2020-08-23 03:16:50', 1, '2020-08-26 07:16:33', NULL, NULL, NULL),
 (4, 'Banana organic', 'banana-organic', 'Banana organic', '<p>Banana organic</p>', 'http://test.organi.com/avatar/4/img.jpg', 'http://test.organi.com/avatar/4/', 'Banana organic', 'Banana organic', 41500, 0, 4, '2020-08-23 03:18:32', 1, '2020-08-26 07:16:47', NULL, NULL, NULL),
 (5, 'Gourd organic', 'gourd-organic', 'Gourd organic', '<p>Gourd organic</p>', 'http://test.organi.com/avatar/5/img.jpg', 'http://test.organi.com/avatar/5/', 'Gourd organic', 'Gourd organic', 45000, 0, 5, '2020-08-23 03:19:42', 1, '2020-08-26 07:17:01', NULL, NULL, NULL),
@@ -707,9 +730,9 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `order_detail`
+-- Indexes for table `order_details`
 --
-ALTER TABLE `order_detail`
+ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -745,7 +768,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -793,13 +816,13 @@ ALTER TABLE `newsletters`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `order_detail`
+-- AUTO_INCREMENT for table `order_details`
 --
-ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `order_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
