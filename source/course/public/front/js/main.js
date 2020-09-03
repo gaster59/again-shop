@@ -174,7 +174,7 @@
     /*--------------------------
         Select
     ----------------------------*/
-    $("select").niceSelect();
+    // $("select").niceSelect();
 
     /*------------------
 		Single Product
@@ -227,10 +227,17 @@
         $('#frmSubmitCart').submit();
     });
 
-    $('.icon_close').click(function(e){
+    $('.icon_close').click(function (e) {
         var index = $(this).attr('data-id');
-        $('#tr'+index).remove();
-    })
+        $('#tr' + index).remove();
+    });
+
+    $('#diff-acc').click(function (e) {
+        var checked = $(this).prop('checked');
+        if(checked == true) {
+            $('#ship_address').val($('#address').val());
+        }
+    });
 
 })(jQuery);
 
