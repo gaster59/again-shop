@@ -50,7 +50,9 @@ class CategoryController extends BaseAdminController
             $auth = \Auth::guard('admin')->user();
             $this->category->create([
                 'name'             => $request->name,
+                'slug'             => $request->slug,
                 'description'      => $request->description,
+                'parent_id'        => 0,
                 'meta_tags'        => $request->meta_tags,
                 'meta_description' => $request->meta_description,
                 'created_by'       => $auth->id,
@@ -87,7 +89,9 @@ class CategoryController extends BaseAdminController
             $category = $this->category->getDetailCategory($id);
             $category->update([
                 'name'             => $request->name,
+                'slug'             => $request->slug,
                 'description'      => $request->description,
+                'parent_id'        => $request->parent_id ?? 0,
                 'meta_tags'        => $request->meta_tags,
                 'meta_description' => $request->meta_description,
                 'updated_by'       => $auth->id,

@@ -1,5 +1,10 @@
 @extends('layout.front')
 
+@section('title', 'Contact')
+
+@section('meta_description', 'Contact')
+@section('meta_keywords', 'Contact')
+
 @section('content')
 
 <section class="breadcrumb-section set-bg" data-setbg="{{ asset('front/img/breadcrumb.jpg') }}">

@@ -61,9 +61,9 @@ class Product extends Model
     public function getProductsPaginate($limit, $q = '')
     {
         if ($q == '') {
-            $result = $this->where('price_down', '=', 0)->paginate($limit);
+            $result = $this->where('price_down', '=', 0)->orderBy('id', 'desc')->paginate($limit);
         } else {
-            $result = $this->where('price_down', '=', 0)->where('name', 'like', "%$q%")->paginate($limit);
+            $result = $this->where('price_down', '=', 0)->where('name', 'like', "%$q%")-orderBy('id', 'desc')->paginate($limit);
         }
         return $result;
     }

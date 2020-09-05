@@ -52,6 +52,33 @@ class ShopController extends Controller
         ]);
     }
 
+    /**
+     * @method search
+     * @param Request $request
+     * @return view
+     */
+    public function search(Request $request)
+    {
+        $q = $request->query('q', '');
+        if ($q == '') {
+            return redirect(route('shop.index'));
+        }
+        $products    = $this->product->getProductsPaginate($this->paginateFrontEnd, $q);
+        $productSell = $this->product->getProductsSell($this->limitSell);
+        return view('front.shop.index', [
+            'products'    => $products,
+            'productSell' => $productSell,
+            'categories'  => $this->categories,
+        ]);
+    }
+
+    /**
+     * @method category
+     * @param Integer $id
+     * @param String $name
+     * @param Request $request
+     * @return view
+     */
     public function category($id, $name, Request $request)
     {
         $product     = new Product();
@@ -68,6 +95,13 @@ class ShopController extends Controller
         ]);
     }
 
+    /**
+     * @method product
+     * @param Integer $id
+     * @param String $name
+     * @param Request $request
+     * @return view
+     */
     public function product($id, $name, Request $request)
     {
         $product = new Product();
@@ -102,6 +136,11 @@ class ShopController extends Controller
         ]);
     }
 
+    /**
+     * @method blog
+     * @param Request $request
+     * @return view
+     */
     public function blog(Request $request)
     {
         $blogs = $this->blog->getBlogsPaginate(config('paginate.front-end'));
@@ -110,6 +149,13 @@ class ShopController extends Controller
         ]);
     }
 
+    /**
+     * @method detailBlog
+     * @param Integer $id
+     * @param String $name
+     * @param Request $request
+     * @return view
+     */
     public function detailBlog($id, $name, Request $request)
     {
         $blog = $this->blog->getDetailBlog($id);
@@ -118,6 +164,11 @@ class ShopController extends Controller
         ]);
     }
 
+    /**
+     * @method contact
+     * @param Request $request
+     * @return view
+     */
     public function contact(Request $request)
     {
         return view('front.contact.index');

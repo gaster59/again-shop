@@ -2,6 +2,9 @@
 
 @section('title', 'Blogs')
 
+@section('meta_description', 'Blogs')
+@section('meta_keywords', 'Blogs')
+
 @section('content')
 
 <!-- Breadcrumb Section Begin -->

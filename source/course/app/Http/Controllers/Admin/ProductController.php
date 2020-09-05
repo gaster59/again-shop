@@ -72,7 +72,7 @@ class ProductController extends BaseAdminController
             $auth            = \Auth::guard('admin')->user();
             $productInserted = $this->product->create([
                 'name'             => $request->name,
-                'slug'             => $request->slug ?? '',
+                'slug'             => $request->slug ?? \Str::slug($request->name),
                 'description'      => $request->description,
                 'summary'          => $request->summary,
                 'avatar'           => '',

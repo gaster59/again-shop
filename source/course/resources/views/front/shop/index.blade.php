@@ -1,6 +1,8 @@
 @extends('layout.front')
 
 @section('title', 'Index')
+@section('meta_description', 'Trang chủ')
+@section('meta_keywords', 'Trang chủ')
 
 @section('content')
 

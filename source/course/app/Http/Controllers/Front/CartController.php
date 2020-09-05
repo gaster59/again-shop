@@ -52,28 +52,30 @@ class CartController extends Controller
             $quantity = $request->quantity;
             $cart     = $request->session()->get(SESSION_CART, []);
 
-            if (!isset($cart[$id])) {
-                $cart[$id] = [
-                    $detailProduct->price_down == 0 ? $detailProduct->price : $detailProduct->price_down, // price
-                    (int)$quantity, // quantity
-                    $detailProduct, // product info
+            if ($detailProduct->price != 0) {
+                if (!isset($cart[$id])) {
+                    $cart[$id] = [
+                        $detailProduct->price_down == 0 ? $detailProduct->price : $detailProduct->price_down, // price
+                        (int)$quantity, // quantity
+                        $detailProduct, // product info
+                    ];
+                } else {
+                    $cart[$id][1] = $cart[$id][1] + $quantity;
+                }
+    
+                $money = 0;
+                foreach ($cart as $productId => $item) {
+                    $money += ($item[0] * $item[1]);
+                }
+    
+                $request->session()->put(SESSION_CART, $cart);
+                $result = [
+                    'success' => 1,
+                    'total'   => count($cart),
+                    'money'   => $money,
+                    'message' => 'Added item to cart successfully',
                 ];
-            } else {
-                $cart[$id][1] = $cart[$id][1] + $quantity;
             }
-
-            $money = 0;
-            foreach ($cart as $productId => $item) {
-                $money += ($item[0] * $item[1]);
-            }
-
-            $request->session()->put(SESSION_CART, $cart);
-            $result = [
-                'success' => 1,
-                'total'   => count($cart),
-                'money'   => $money,
-                'message' => 'Added item to cart successfully',
-            ];
         } catch (Exception $ex) {
             \Log::error($ex->getMessage());
             $result = ['success' => 0];

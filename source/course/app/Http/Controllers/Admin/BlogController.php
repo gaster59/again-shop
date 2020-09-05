@@ -123,13 +123,13 @@ class BlogController extends BaseAdminController
         try {
             DB::beginTransaction();
             $auth    = \Auth::guard('admin')->user();
-            $product = $this->product->getDetailProduct($id);
-            if (null == $product) {
+            $blog = $this->blog->getDetailBlog($id);
+            if (null == $blog) {
                 $this->alertService->saveSessionDanger("Blog doesn't exists");
                 return redirect(route('admin.blog.index'));
             }
 
-            $product->update([
+            $blog->update([
                 'name'             => $request->name,
                 'slug'             => $request->slug ?? '',
                 'description'      => $request->description,
@@ -140,10 +140,10 @@ class BlogController extends BaseAdminController
             ]);
 
             // upload product avatar
-            $avatar                = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'avatar', $id);
-            $product->avatar       = $avatar[0];
-            $product->avatar_thumb = $avatar[1];
-            $product->save();
+            $avatar                = $this->imageService->saveProductImageBase64($request->hdn_avatar, 'blog', $id, 'blog');
+            $blog->avatar       = $avatar[0];
+            $blog->avatar_thumb = $avatar[1];
+            $blog->save();
 
             DB::commit();
             $this->alertService->saveSessionSuccess('Blog saved successfully');

@@ -4,9 +4,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="Ogani Template">
-        <meta name="keywords" content="Ogani, unica, creative, html">
+        <meta name="description" content="@yield('meta_description')"/>
+        <meta name="keywords" content="@yield('meta_keywords')">
+        <meta name='revisit-after' content='1 days' />
+        <meta http-equiv='content-language' content='vi' />
+        <meta name='robots' content='noodp,index,follow' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+
+        
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>@yield('title')</title>
 
@@ -197,7 +204,7 @@
                                             All Categories
                                             <span class="arrow_carrot-down"></span>
                                         </div>
-                                        <input type="text" name="q" placeholder="What do yo u need?">
+                                        <input type="text" name="q" placeholder="What do yo u need?" value="{{ \Request::query('q', '') }}">
                                         <button type="submit" class="site-btn">SEARCH</button>
                                     </form>
                                 </div>

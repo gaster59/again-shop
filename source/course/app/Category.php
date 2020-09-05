@@ -23,7 +23,9 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'description',
+        'parent_id',
         'meta_tags',
         'meta_description',
         'created_by',
@@ -46,7 +48,10 @@ class Category extends Model
         $fields = [
             'id',
             'name',
+            'slug',
             'description',
+            'meta_tags',
+            'meta_description',
             'parent_id',
         ];
 

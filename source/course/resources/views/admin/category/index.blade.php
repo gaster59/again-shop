@@ -21,6 +21,7 @@
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Description</th>
                 <th scope="col"></th>
             </tr>
@@ -29,6 +30,7 @@
             @foreach($categories as $category)
             <tr>
                 <td>{{ $category->name }}</td>
+                <td>{{ $category->slug }}</td>
                 <td>{{ $category->description }}</td>
                 <td>
                     <a href="{{ route('admin.category.edit',['id' => $category->id]) }}" type="button" class="btn btn-primary">Edit</a>
@@ -41,6 +43,5 @@
         </table>
     </div>
 </div><!--/.row-->
-
 
 @endsection

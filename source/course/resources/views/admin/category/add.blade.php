@@ -13,15 +13,24 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Category - Add</h1>
-        
+
         <form method="post" action="{{ route('admin.category.doAdd') }}">
             @csrf
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Name" value="{{ old('name', '') }}">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Name" value="{{ old('name', '') }}" onchange="createSlug(this)" />
                     @if($errors->has('name'))
                         <div class="error text-danger">{{ $errors->first('name') }}</div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Slug</label>
+                <div class="col-sm-10">
+                    <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" value="{{ old('slug', '') }}">
+                    @if($errors->has('slug'))
+                        <div class="error text-danger">{{ $errors->first('slug') }}</div>
                     @endif
                 </div>
             </div>
@@ -64,4 +73,15 @@
 </div><!--/.row-->
 
 
+@endsection
+
+@section("js")
+<script src="{{ URL::asset('admin/js/slugify.js') }}"></script>
+<script type="text/javascript">
+    function createSlug(self) {
+        var text = $(self).val();
+        var slug = string_to_slug(text);
+        $('#slug').val(slug);
+    }
+</script>
 @endsection

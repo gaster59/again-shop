@@ -2,6 +2,9 @@
 
 @section('title', 'Category product')
 
+@section('meta_description', $detailCategory['meta_description'])
+@section('meta_keywords', $detailCategory['meta_tags'])
+
 @section('content')
 
 <!-- Breadcrumb Section Begin -->

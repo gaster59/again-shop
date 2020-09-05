@@ -2,6 +2,8 @@
 
 @section('title', 'Cart')
 
+@section('meta_description', 'Cart')
+
 @section('content')
 
 <section class="breadcrumb-section set-bg" data-setbg="{{ asset('front/img/breadcrumb.jpg') }}">

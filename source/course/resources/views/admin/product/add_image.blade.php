@@ -39,7 +39,7 @@
                         @endif
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[0][description_image]"></textarea>
+                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[0][description_image]" max-length="100"></textarea>
                         @if($errors->has('productImage.*.description_image'))
                             <div class="error text-danger">{{ $errors->first('productImage.*.description_image') }}</div>
                         @endif
@@ -63,7 +63,8 @@
                         @endif
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control" rows="5" id="description_image0" name="productImage[{{ $key }}][description_image]">{{ $item['description_image'] ?? '' }}</textarea>
+                        <textarea class="form-control" rows="5" id="description_image0" 
+                            name="productImage[{{ $key }}][description_image]" max-length="100">{{ $item['description_image'] ?? '' }}</textarea>
                         @if($errors->has("productImage.$key.description_image"))
                             <div class="error text-danger">{{ $errors->first("productImage.$key.description_image") }}</div>
                         @endif
@@ -98,7 +99,7 @@
             <input type="hidden" name="productImage[xxx][path]" id="pathxxx" value="" />
         </div>
         <div class="col-sm-6">
-            <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[xxx][description_image]"></textarea>
+            <textarea class="form-control" rows="5" id="description_imagexxx" name="productImage[xxx][description_image]" max-length="100"></textarea>
         </div>
         <div class="col-sm-2">
             <button type="button" class="btn btn-primary" data-index="xxx" onClick="deleteAreaImage(this);">Delete</button>
