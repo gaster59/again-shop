@@ -40,6 +40,7 @@ class NewsletterController extends Controller
         try {
             $this->newsletter->create([
                 'email' => $request->email,
+                'sort_order' => 0
             ]);
             return response()->json([
                 'status' => 'OK',
