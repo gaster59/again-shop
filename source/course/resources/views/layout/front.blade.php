@@ -9,11 +9,8 @@
         <meta name='revisit-after' content='1 days' />
         <meta http-equiv='content-language' content='vi' />
         <meta name='robots' content='noodp,index,follow' />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        
-
-        
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>@yield('title')</title>
 
@@ -225,7 +222,7 @@
             <!-- Hero Section End -->
 
             @yield('content')
-            
+
             @include('front._partials.footer')
 
             <!-- Js Plugins -->
@@ -248,7 +245,7 @@
                 @if(session('alertType') && session('alertMessage'))
                 $.notify({
                     // options
-                    message: "{{ session('alertMessage') }}" 
+                    message: "{{ session('alertMessage') }}"
                 },{
                     // settings
                     type: "{{ session('alertType') }}"
@@ -258,7 +255,34 @@
             <script src="{{ asset('front/js/main.js') }}"></script>
             @section('js')
             @show
-        
+
+            <!-- Load Facebook SDK for JavaScript -->
+            <div class="fb-customerchat" page_id="1405257539796106" minimized="true">
+            </div>
+            <div id="fb-root"></div>
+            <script>
+                window.fbAsyncInit = function() {
+                FB.init({
+                    xfbml            : true,
+                    version          : 'v8.0'
+                });
+                };
+
+                (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+            <!-- Your Chat Plugin code -->
+            <div class="fb-customerchat"
+                attribution=setup_tool
+                page_id="1405257539796106">
+            </div>
+            
+
     </body>
 
 </html>
