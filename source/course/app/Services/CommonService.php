@@ -4,7 +4,7 @@ namespace App\Services;
 use App\Category;
 use App\Slide;
 
-class Common
+class CommonService
 {
     /**
      * get menu active in sidebar menu
@@ -67,6 +67,40 @@ class Common
             }
         }
         return $arrRes;
+    }
+
+    public static function buildTreeObject($arr, $parent = 0)
+    {
+        // dd(23232, $arr, $parent);
+        $res = new \stdClass();
+        foreach($arr as $item) 
+        {
+            // if($item->parent_id === $parent) {
+            //     if ($item->parent_id === 0) {
+            //         $res->name = $item->name;
+            //         $res->title = $item->title;
+            //         $res->indent = $indent;
+            //     } else {
+            //         $subRes = new \stdClass();
+            //         $subRes->id = $item->id;
+            //         $subRes->name = $item->name;
+            //         $subRes->title = $item->title;
+            //         $subRes->indent = $indent;
+            //         $res->children[$item->parent_id][] = $subRes;
+            //     }
+            //     static::buildTreeObject($arr, $item->id, $indent+1, $res);
+            // }
+            
+            if($item->parent_id === $parent) {
+                $res->name = $item->name;
+                $res->title = $item->title;
+                $res->children[$item->parent_id] = static::buildTreeObject($arr, $item->id);
+            } else {
+                continue;
+            }
+
+        }
+        return $res;
     }
 
     /**

@@ -92,4 +92,9 @@ class CheckoutController extends Controller
         $request->session()->put(SESSION_CART, []);
         return redirect(route('shop.index'));
     }
+
+    public function test(Request $request)
+    {
+        dd(2312312);
+    }
 }

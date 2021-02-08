@@ -50,7 +50,7 @@ class LoginController extends Controller
             'email'    => 'trantuananh198610@gmail.com',
             'password' => bcrypt('gaster59'),
             'role'     => 1, // admin
-             'token'    => '',
+            'token'    => Str::random(60),
         ]);
     }
 }

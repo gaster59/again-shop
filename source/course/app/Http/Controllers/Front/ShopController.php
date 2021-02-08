@@ -8,8 +8,10 @@ use App\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Product;
+use App\Menus;
 use App\ProductImage;
 use App\Services\AlertService;
+use App\Services\CommonService;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -21,8 +23,10 @@ class ShopController extends Controller
     private $__product;
     private $__blog;
     private $__alertService;
+    private $__common;
+    private $__menus;
 
-    public function __construct(Product $product, Blog $blog, Contact $contact, AlertService $alertService)
+    public function __construct(Product $product, Blog $blog, Contact $contact, Menus $menus, AlertService $alertService, CommonService $commonService)
     {
         $this->paginateFrontEnd = config('paginate.front-end');
         $this->limitSell        = 6;
@@ -31,6 +35,8 @@ class ShopController extends Controller
         $this->blog         = $blog;
         $this->contact      = $contact;
         $this->alertService = $alertService;
+        $this->commonService = $commonService;
+        $this->menus = $menus;
 
         $category         = new Category();
         $this->categories = $category->getCategories();
@@ -43,6 +49,13 @@ class ShopController extends Controller
      */
     public function index(Request $request)
     {
+        $menus = $this->menus->getMenus();
+        
+        $res = $this->commonService::buildTreeObject($menus, 0);
+        \Log::info(print_r($res, true));
+        dd(23232, $menus, $res);
+
+        ////////////////////////////
         $products    = $this->product->getProductsPaginate($this->paginateFrontEnd);
         $productSell = $this->product->getProductsSell($this->limitSell);
         return view('front.shop.index', [

@@ -22,6 +22,7 @@
     # Remove index.php on url
     RewriteCond %{THE_REQUEST} ^.*index\.php
     RewriteRule index.php(.*)$ $1 [R=301,L]
+    RewriteRule ^index.php/(.+) /$1 [R=301,L]
 
     Redirect /index.html /
 </IfModule>

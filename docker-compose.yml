@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "81:80"
+      - "84:80"
     extra_hosts:
       - "dockerhost:127.0.0.1"
     volumes:

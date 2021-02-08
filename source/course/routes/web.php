@@ -34,6 +34,8 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/checkout'.$suffix, "CheckoutController@index")->name('shop.checkout.index');
     Route::post('/checkout'.$suffix, "CheckoutController@store")->name('shop.checkout.store');
+
+    Route::get('/test'.$suffix, "CheckoutController@test")->name('shop.checkout.test')->middleware('basic.auth');
 });
 
 Route::get('admin/login', "Admin\LoginController@index")->name('admin.login.index');
