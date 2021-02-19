@@ -72,7 +72,8 @@ class CommonService
     public static function buildTreeObject($arr, $parent = 0)
     {
         // dd(23232, $arr, $parent);
-        $res = new \stdClass();
+        $res = [];
+        // $res = new \stdClass();
         foreach($arr as $item) 
         {
             // if($item->parent_id === $parent) {
@@ -90,11 +91,11 @@ class CommonService
             //     }
             //     static::buildTreeObject($arr, $item->id, $indent+1, $res);
             // }
-            
-            if($item->parent_id === $parent) {
-                $res->name = $item->name;
-                $res->title = $item->title;
-                $res->children[$item->parent_id] = static::buildTreeObject($arr, $item->id);
+
+            // done
+            if($item->parent_id == $parent) {
+                $res[$item->id] = $item;
+                $res[$item->id]['children'] = static::buildTreeObject($arr, $item->id);
             } else {
                 continue;
             }

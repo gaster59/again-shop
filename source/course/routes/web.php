@@ -84,6 +84,13 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'admin.authen:admin'], funct
         Route::get('order/detail/{id}', "OrderController@detail")->name('admin.order.detail');
         Route::get('order/delete/{id}', "OrderController@delete")->name('admin.order.delete');
 
+        Route::get('quiz', "QuizController@index")->name('admin.quiz.index');
+        Route::get('quiz/add', "QuizController@add")->name('admin.quiz.add');
+        Route::post('quiz/doAdd', "QuizController@store")->name('admin.quiz.doAdd');
+        Route::get('quiz/edit/{id}', "QuizController@edit")->name('admin.quiz.edit');
+        Route::post('quiz/edit/{id}', "QuizController@update")->name('admin.quiz.doEdit');
+        Route::get('quiz/delete/{id}', "QuizController@delete")->name('admin.quiz.delete');
+
         Route::post('uploader/save-image', "UploaderController@saveImage")->name('admin.uploader.saveImage');
     });
 });

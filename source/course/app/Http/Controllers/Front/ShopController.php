@@ -51,9 +51,9 @@ class ShopController extends Controller
     {
         $menus = $this->menus->getMenus();
         
-        $res = $this->commonService::buildTreeObject($menus, 0);
-        \Log::info(print_r($res, true));
-        dd(23232, $menus, $res);
+        // $res = $this->commonService::buildTreeObject($menus, 0);
+        // \Log::info(print_r($res, true));
+        // dd(23232, $menus, $res);
 
         ////////////////////////////
         $products    = $this->product->getProductsPaginate($this->paginateFrontEnd);

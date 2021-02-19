@@ -49,13 +49,13 @@ class CategoryController extends BaseAdminController
         try {
             $auth = \Auth::guard('admin')->user();
             $this->category->create([
-                'name'             => $request->name,
-                'slug'             => $request->slug,
-                'description'      => $request->description,
-                'parent_id'        => 0,
-                'meta_tags'        => $request->meta_tags,
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'description' => $request->description,
+                'parent_id' => 0,
+                'meta_tags' => $request->meta_tags,
                 'meta_description' => $request->meta_description,
-                'created_by'       => $auth->id,
+                'created_by' => $auth->id,
             ]);
         } catch (Exception $ex) {
             \Log::error($ex->getMessage());
@@ -85,16 +85,16 @@ class CategoryController extends BaseAdminController
     public function update($id, CategoryRequest $request)
     {
         try {
-            $auth     = \Auth::guard('admin')->user();
+            $auth = \Auth::guard('admin')->user();
             $category = $this->category->getDetailCategory($id);
             $category->update([
-                'name'             => $request->name,
-                'slug'             => $request->slug,
-                'description'      => $request->description,
-                'parent_id'        => $request->parent_id ?? 0,
-                'meta_tags'        => $request->meta_tags,
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'description' => $request->description,
+                'parent_id' => $request->parent_id ?? 0,
+                'meta_tags' => $request->meta_tags,
                 'meta_description' => $request->meta_description,
-                'updated_by'       => $auth->id,
+                'updated_by' => $auth->id,
             ]);
         } catch (Exception $ex) {
             \Log::error($ex->getMessage());
@@ -110,7 +110,7 @@ class CategoryController extends BaseAdminController
     public function delete($id)
     {
         try {
-            $auth     = \Auth::guard('admin')->user();
+            $auth = \Auth::guard('admin')->user();
             $category = $this->category->getDetailCategory($id);
             $category->update([
                 'deleted_by' => $auth->id,

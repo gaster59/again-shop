@@ -14,7 +14,7 @@ class Product extends Model
      *
      * @var string
      */
-    protected $_table = 'products';
+    protected $table = 'products';
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +42,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $_guarded = [];
+    protected $guarded = [];
 
     /**
      * @method getProducts
@@ -63,7 +63,7 @@ class Product extends Model
         if ($q == '') {
             $result = $this->where('price_down', '=', 0)->orderBy('id', 'desc')->paginate($limit);
         } else {
-            $result = $this->where('price_down', '=', 0)->where('name', 'like', "%$q%")-orderBy('id', 'desc')->paginate($limit);
+            $result = $this->where('price_down', '=', 0)->where('name', 'like', "%$q%")->orderBy('id', 'desc')->paginate($limit);
         }
         return $result;
     }
